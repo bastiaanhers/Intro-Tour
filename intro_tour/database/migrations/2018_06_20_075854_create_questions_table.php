@@ -15,9 +15,7 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('location_id');
             $table->string('question');
-            $table->string('event_type');
             $table->timestamps();
         });
     }

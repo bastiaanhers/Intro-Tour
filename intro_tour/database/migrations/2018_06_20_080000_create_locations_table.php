@@ -19,7 +19,7 @@ class CreateLocationsTable extends Migration
             $table->string('description');
             $table->float('radius');
             $table->float('latitude');
-            $table->float('longtitude');
+            $table->float('longitude');
             $table->timestamps();
         });
     }
