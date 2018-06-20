@@ -19,7 +19,11 @@
 </VirtualHost>
 ```
 3. Start apache opnieuw op
-4. Maak ``.env`` bestand aan in de root folder van het project
-5. Kopieer inhoud van ``.env.example`` in het nieuw aangemaakte ``.env`` bestand
-6. Verander regel 5 naar ``APP_URL=http://intro-tour.local``
-7. Run command ``php artisan key:generate``
+
+### Laravel Configureren
+
+1. Maak ``.env`` bestand aan in de root folder van het project
+2. Kopieer inhoud van ``.env.example`` in het nieuw aangemaakte ``.env`` bestand
+3. Verander regel 5 naar ``APP_URL=http://intro-tour.local``
+4. Run command ``php artisan key:generate``
+5. Run command ``composer update``
