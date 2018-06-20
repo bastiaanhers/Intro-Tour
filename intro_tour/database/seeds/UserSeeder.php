@@ -15,19 +15,19 @@ class UserSeeder extends Seeder
         ([
             [
             'name' => "henk",
-            'team_id' => 112233,
+            'team_id' => 1,
             'role' => "master",
             ],[
             'name' => "harry",
-            'team_id' => 112233,
+            'team_id' => 1,
             'role' => "peasants",
             ],[
             'name' => "yea",
-            'team_id' => 445566,
+            'team_id' => 2,
             'role' => "master",
             ],[
             'name' => "boi",
-            'team_id' => 445566,
+            'team_id' => 2,
             'role' => "peasants",
             ]
         ]);
@@ -43,14 +43,14 @@ class UserSeeder extends Seeder
             ]
         ]);
 
-        DB::table('admin')->insert
+        DB::table('admins')->insert
         ([
             [
             'username' => "NekoBot",
-            'password' => "$2y$12$hmcfHQzfFLZtVXfdGqQ6Z.PI7C395xWux0CJWtFvHeTJiCufdpxCe",
+            'password' => "$2y$12\$hmcfHQzfFLZtVXfdGqQ6Z.PI7C395xWux0CJWtFvHeTJiCufdpxCe",
             ],[
             'username' => "KeemStar",
-            'password' => "$2y$12$hmcfHQzfFLZtVXfdGqQ6Z.PI7C395xWux0CJWtFvHeTJiCufdpxCe",
+            'password' => "$2y$12\$hmcfHQzfFLZtVXfdGqQ6Z.PI7C395xWux0CJWtFvHeTJiCufdpxCe",
             ]
         ]);
         DB::table('admin_tour')->insert
