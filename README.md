@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Dev omgeving opzetten
 
 ### v-host opzetten
@@ -27,3 +28,10 @@
 3. Verander regel 5 naar ``APP_URL=http://intro-tour.local``
 4. Run command ``php artisan key:generate``
 5. Run command ``composer update``
+=======
+# Angular werkend krijgen
+
+1. install node.js
+2. run command ``npm install`` in intro-tour-client map (if this does not work load node installer and run repair) 
+3. run command ``npm start``
+>>>>>>> origin/test
