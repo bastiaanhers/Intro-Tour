@@ -13,7 +13,6 @@ class ToursSeeder extends Seeder
     {
         DB::table('Tours')->insert 
         ([
-        'id' => 1,
         'name' => "Super Cool Tour Rawr XD",
         'team_limit' => 2,
         'description' => "Rawr my fellow Emo kids welcome to the super cool tour. Remember this tour is for the coolest emo kids only. DONT @ ME!!",

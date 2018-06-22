@@ -1,0 +1,11 @@
+diff a/intro_tour/database/migrations/2018_06_20_075854_create_questions_table.php b/intro_tour/database/migrations/2018_06_20_075854_create_questions_table.php	(rejected hunks)
+@@ -15,9 +15,7 @@
+     {
+         Schema::create('questions', function (Blueprint $table) {
+             $table->increments('id');
+-            $table->integer('location_id');
+             $table->string('question');
+-            $table->string('event_type');
+             $table->timestamps();
+         });
+     }
