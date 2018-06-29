@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Participant;
+use App\Admin;
+use App\Tour;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/* Participants routes */
 Route::get('participants', function() {
     // If the Content-Type and Accept headers are set to 'application/json', 
     // this will return a JSON structure. This will be cleaned up later.
@@ -41,6 +44,62 @@ Route::put('participants/{id}', function(Request $request, $id) {
 
 Route::delete('participants/{id}', function($id) {
     Participant::find($id)->delete();
+
+    return 204;
+});
+
+/* Admins */
+Route::get('admins', function() {
+    // If the Content-Type and Accept headers are set to 'application/json', 
+    // this will return a JSON structure. This will be cleaned up later.
+    return Admin::all();
+});
+ 
+Route::get('admins/{id}', function($id) {
+    return Admin::find($id);
+});
+
+Route::post('admins', function(Request $request) {
+    return Admin::create($request->all);
+});
+
+Route::put('admins/{id}', function(Request $request, $id) {
+    $admin = Admin::findOrFail($id);
+    $admin->update($request->all());
+
+    return $admin;
+});
+
+Route::delete('admins/{id}', function($id) {
+    Admin::find($id)->delete();
+
+    return 204;
+});
+
+/* Tours */
+Route::get('tours', function() {
+    // If the Content-Type and Accept headers are set to 'application/json', 
+    // this will return a JSON structure. This will be cleaned up later.
+    return Tour::all();
+});
+ 
+Route::get('tours/{id}', function($id) {
+    return Tour::find($id);
+});
+
+Route::post('tours', function(Request $request) {
+    return Tour::create($request->all);
+});
+
+Route::put('tours/{id}', function(Request $request, $id) {
+    $tour = Tour::findOrFail($id);
+    $tour->update($request->all());
+
+    return $tour;
+});
+
+Route::delete('tours/{id}', function($id) {
+    Tour::find($id)->delete();
 
     return 204;
 });
