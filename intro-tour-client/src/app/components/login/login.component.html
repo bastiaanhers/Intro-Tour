@@ -1,0 +1,22 @@
+<div class="screen">
+    <div id="error_message" class="ui negative message transition hidden">
+      <div class="header">
+        Kan niet inloggen
+      </div>
+      <p>Het lijkt erop dat je niet alle velden hebt ingevult</p>
+    </div>
+  <div id="login-element">
+    <form action="">
+      <h2>INTRO TOUR</h2><br>
+      <div class="ui massive input" id="name_input">
+        <input  [(ngModel)]="player.name" type="text" placeholder="Naam" name="name">
+      </div><br>
+      <div class="ui massive input" id="tour_id_input">
+        <input  [(ngModel)]="player.tour_id" type="number" placeholder="Tour ID" (keyup.enter)="onKeyUp()" name="tour_id">
+      </div><br>
+      <div>
+        <input id="login-button" type="submit" class="massive one ui blue button" value="GO!" (click)="hideElement()">
+      </div>      
+    </form>
+  </div>
+</div>
