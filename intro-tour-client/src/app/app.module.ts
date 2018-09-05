@@ -6,7 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { LocationPageComponent } from './location-page/location-page.component';
+import { LocationPageComponent } from './components/location-page/location-page.component';
 import { NavigateComponent } from './components/navigate/navigate.component';
 
 const appRoutes: Routes = [
