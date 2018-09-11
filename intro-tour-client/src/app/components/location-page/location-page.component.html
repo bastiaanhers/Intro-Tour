@@ -1,2 +1,18 @@
-<br><br><br><br>
-<p>long: {{x}} <br>lat: {{y}}</p>
+<br><br><br>
+<agm-map [latitude]="x" [longitude]="y" [zoom]="z">
+    <agm-marker [latitude]="x" [longitude]="y" [iconUrl]="icon"></agm-marker>        
+
+    <agm-marker *ngFor="let location of locations" [latitude]="location.location.x" [longitude]="location.location.y" [iconUrl]="icon_q">
+        <agm-circle
+            [latitude]="location.location.x" 
+            [longitude]="location.location.y"
+            [radius]="location.radius"
+        ></agm-circle>
+    </agm-marker>
+</agm-map>
+
+<div *ngFor="let location of locations">
+    <div id="popup-{{location.id}}" class="question-pop-up">
+        <p class="q-title">Vraag {{location.id}}</p>
+    </div>     
+</div>

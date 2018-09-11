@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     tour_id: null
   }
   ngOnInit() {
+    
   }
 
   hideElement(){
