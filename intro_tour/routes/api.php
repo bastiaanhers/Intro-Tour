@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Participant;
 use App\Admin;
 use App\Tour;
+use App\Team;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,24 @@ use App\Tour;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+/* Auth */
+// Route::group([
+//     'prefix' => 'auth'
+// ], function () {
+//     Route::post('login', 'AuthController@login');
+//     Route::post('signup', 'AuthController@signup');
+  
+//     Route::group([
+//       'middleware' => 'auth:api'
+//     ], function() {
+//         Route::get('logout', 'AuthController@logout');
+//         Route::get('user', 'AuthController@user');
+//     });
+// });
 
 /* Participants routes */
 Route::get('participants', function() {
@@ -100,6 +116,34 @@ Route::put('tours/{id}', function(Request $request, $id) {
 
 Route::delete('tours/{id}', function($id) {
     Tour::find($id)->delete();
+
+    return 204;
+});
+
+/* Teams */
+Route::get('teams', function() {
+    // If the Content-Type and Accept headers are set to 'application/json', 
+    // this will return a JSON structure. This will be cleaned up later.
+    return Team::all();
+});
+ 
+Route::get('teams/{id}', function($id) {
+    return Team::find($id);
+});
+
+Route::post('teams', function(Request $request) {
+    return Team::create($request->all());
+});
+
+Route::put('teams/{id}', function(Request $request, $id) {
+    $team = Team::findOrFail($id);
+    $team->update($request->all());
+
+    return $team;
+});
+
+Route::delete('teams/{id}', function($id) {
+    Team::find($id)->delete();
 
     return 204;
 });
