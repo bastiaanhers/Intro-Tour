@@ -1,8 +1,7 @@
 export class Location {
     id: number;
-    location: {
-        x: any;
-        y: any;
-    }
+    x: any;
+    y: any;
     radius: number;
+    question?: any;
 }
