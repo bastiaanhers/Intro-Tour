@@ -48,7 +48,7 @@ Route::get('participants/{id}', function($id) {
 });
 
 Route::post('participants', function(Request $request) {
-    return Participant::create($request->all);
+    return Participant::create($request->all());
 });
 
 Route::put('participants/{id}', function(Request $request, $id) {
@@ -104,7 +104,7 @@ Route::get('tours/{id}', function($id) {
 });
 
 Route::post('tours', function(Request $request) {
-    return Tour::create($request->all);
+    return Tour::create($request->all());
 });
 
 Route::put('tours/{id}', function(Request $request, $id) {
