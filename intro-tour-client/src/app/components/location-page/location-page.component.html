@@ -13,7 +13,9 @@
 
 <div *ngFor="let location of locations">
     <div id="popup-{{location.id}}" class="question-pop-up">
-        <p class="q-title" *ngIf="location.question.text != undifined">{{location.question.text}}</p>
+        <div class="question-pop-up-content">
+            <p class="q-title" *ngIf="location.question.text != undifined">{{location.question.text}}</p>
+        </div>
     <div>   
 </div>
 

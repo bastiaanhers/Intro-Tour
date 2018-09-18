@@ -2,20 +2,28 @@ agm-map{
     height: 200px;
 }
 .question-pop-up{
-    transition: .25s;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+}
+.question-pop-up-content{
     position: absolute;
-    visibility: hidden;
-    opacity: 0;
-    top: 80%;
     left: 5%;
+    top: 10%;
     z-index: 10000;
     height: 80%;
     width: 90%;
     background: white;
     border-radius: 3px;
     box-shadow: 3px 3px 10px 1px rgba(0,0,0,.3);
+    animation-name: animatebottom;
+    animation-duration: .25s;
 }
-
 .question-pop-up.active{
     visibility: visible;
     opacity: 1;
@@ -26,4 +34,8 @@ agm-map{
     font-size: 30px;
     margin: 10px 0px 0px 20px;
     font-weight: bold;
+}
+@keyframes animatebottom {
+    from {top: 80%; opacity: 0}
+    to {top: 10%; opacity: 1}
 }

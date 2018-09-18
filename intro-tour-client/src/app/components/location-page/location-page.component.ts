@@ -92,9 +92,9 @@ export class LocationPageComponent implements OnInit {
   }
 
   public showWindow(id){
-    document.getElementById(`popup-${id}`).classList.add('active');
+    document.getElementById(`popup-${id}`).style.display = 'block';
   }
   public hideWindow(id){
-    document.getElementById(`popup-${id}`).classList.remove('active');
+    document.getElementById(`popup-${id}`).style.display = 'none';
   }
 }
