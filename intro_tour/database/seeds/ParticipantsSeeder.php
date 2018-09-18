@@ -11,24 +11,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user')->insert
+        DB::table('participants')->insert
         ([
             [
             'name' => "henk",
-            'team_id' => 1,
-            'role' => "master",
+            'team_id' => 1
             ],[
             'name' => "harry",
-            'team_id' => 1,
-            'role' => "peasants",
+            'team_id' => 1
             ],[
             'name' => "yea",
-            'team_id' => 2,
-            'role' => "master",
+            'team_id' => 2
             ],[
             'name' => "boi",
-            'team_id' => 2,
-            'role' => "peasants",
+            'team_id' => 2
             ]
         ]);
         
