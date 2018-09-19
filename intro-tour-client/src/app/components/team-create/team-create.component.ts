@@ -15,15 +15,18 @@ export class TeamCreateComponent implements OnInit {
 
 	constructor(private http: HttpClient, private userName: UserNameService) { }
 	
-	team: Team = {
+	public team: Team = {
 		team_name: '',
-    tour_id: null
+		tour_id: null,
+		team_leader: 0,
+		team_pin: 1234
 	}
-	user: User = {
+	public user: User = {
 		name: 'Klaas',
     role: 'master',
-    team_id: null,
+		team_id: null
 	}
+	private teamId: number;
 
 	private apiUrl: string = 'http://intro-tour.local/api/';
 	private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
@@ -72,16 +75,30 @@ export class TeamCreateComponent implements OnInit {
 
 	// Post call to create new user
 	private createUser(res) {
-		this.user.team_id = res.id;
+		this.teamId = res.id;
+		this.user.team_id = this.teamId;
 		this.http.post(this.apiUrl + 'participants', this.user)
 		.subscribe(
 			(res:Response) => {
-				this.hideComponent();
-				this.removeLodaer();	
+				this.updateTeam(res);
 			},
 			err => {
 				console.log("Error occured");
 				this.removeLodaer();
+			}
+		);
+	}
+
+	private updateTeam(res) {
+		this.team.team_leader = res.id;
+		this.http.put(this.apiUrl + 'teams/' + this.teamId, this.team)
+		.subscribe(
+			(res:Response) => {
+				this.hideComponent();
+				this.removeLodaer();
+			},
+			err => {
+				console.log("Error occured");
 			}
 		);
 	}
@@ -92,6 +109,7 @@ export class TeamCreateComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		// Subscribe to name service
 		this.userName.currentName.subscribe(name => this.user.name = name);
 	}
 }
