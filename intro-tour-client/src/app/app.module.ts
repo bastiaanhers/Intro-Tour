@@ -3,19 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import {AgmCoreModule} from '@agm/core';
 
 import { AppComponent } from './app.component';
-//import { LoginComponent } from './components/login/login.component';
-//import { HomeComponent } from './components/home/home.component';
-import { TeamCreateComponent } from './components/team-create/team-create.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { LocationPageComponent } from './components/location-page/location-page.component';
 import { NavigateComponent } from './components/navigate/navigate.component';
-//import { LocationPageComponent } from './location-page/location-page.component';
-
-import { Team } from './team';
+import { TeamCreateComponent } from './components/team-create/team-create.component';
 
 const appRoutes: Routes = [
-  //{path: 'location', component: LocationPageComponent},
-  //{path: 'home', component: HomeComponent},
+  {path: 'location', component: LocationPageComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'team-create', component: TeamCreateComponent},
   //{path: '', component: LoginComponent}
 ]
@@ -23,9 +22,9 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    //LoginComponent,
-    //HomeComponent,
-    //LocationPageComponent,
+    LoginComponent,
+    HomeComponent,
+    LocationPageComponent,
     NavigateComponent,
     TeamCreateComponent
   ],
@@ -36,9 +35,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
-    )
+    ),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+}
