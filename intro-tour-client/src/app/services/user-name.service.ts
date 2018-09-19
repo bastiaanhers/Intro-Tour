@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserNameService {
 
-  private userNameSource = new BehaviorSubject<string>('Kaas');
-  public currentName = this.userNameSource.asObservable();
+  private userNameSource = new BehaviorSubject<string>('John Doe');
+  currentName = this.userNameSource.asObservable();
 
   constructor() { }
 
-  userName(name: string) {
+  newName(name: string) {
     this.userNameSource.next(name);
   }
 }
