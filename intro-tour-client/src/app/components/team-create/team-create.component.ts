@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserNameService } from '../../services/user-name.service'
 import { Team } from '../../team';
 import { User } from '../../user';
  
@@ -12,7 +13,7 @@ import * as $ from 'jquery';
 })
 export class TeamCreateComponent implements OnInit {
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private userName: UserNameService) { }
 	
 	team: Team = {
 		team_name: '',
@@ -89,11 +90,8 @@ export class TeamCreateComponent implements OnInit {
 		this.createTeam();
 		this.errorHandler();
 	}
-
-	public reseveMessage($event) {
-		this.user.name = $event;
-	}
-
+	
 	ngOnInit() {
+		this.userName.currentName.subscribe(name => this.user.name = name);
 	}
 }
