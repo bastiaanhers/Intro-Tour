@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   {path: 'location', component: LocationPageComponent},
   {path: 'home', component: HomeComponent},
   {path: 'team-create', component: TeamCreateComponent},
-  //{path: '', component: LoginComponent}
+  {path: 'login', component: LoginComponent}
 ]
 
 @NgModule({
