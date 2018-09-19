@@ -14,8 +14,8 @@ class AddTeamPinAndTeamLeaderToTeamTable extends Migration
     public function up()
     {
         Schema::table('teams', function($table) {
-            $table->integer('team_pin');
-            $table->integer('team_leader');
+            $table->string('team_pin')->nullable()->unique();
+            $table->integer('team_leader')->nullable();
         });
     }
 
