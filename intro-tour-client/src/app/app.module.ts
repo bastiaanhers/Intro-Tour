@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import {AgmCoreModule} from '@agm/core';
 
 import { AppComponent } from './app.component';
@@ -9,10 +10,12 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { LocationPageComponent } from './components/location-page/location-page.component';
 import { NavigateComponent } from './components/navigate/navigate.component';
+import { TeamCreateComponent } from './components/team-create/team-create.component';
 
 const appRoutes: Routes = [
   {path: 'location', component: LocationPageComponent},
   {path: 'home', component: HomeComponent},
+  {path: 'team-create', component: TeamCreateComponent},
   //{path: '', component: LoginComponent}
 ]
 
@@ -22,11 +25,13 @@ const appRoutes: Routes = [
     LoginComponent,
     HomeComponent,
     LocationPageComponent,
-    NavigateComponent
+    NavigateComponent,
+    TeamCreateComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
