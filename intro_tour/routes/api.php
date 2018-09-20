@@ -38,28 +38,28 @@ use App\Team;
 
 /* Participants routes */
 Route::get('participants', 'ParticipantController@index');
-Route::get('participants/{id}', 'ParticipantController@show');
+Route::get('participants/{participant}', 'ParticipantController@show');
 Route::post('participants', 'ParticipantController@store');
-Route::put('participants/{id}', 'ParticipantController@update');
-Route::delete('participants/{id}', 'ParticipantController@delete');
+Route::put('participants/{participant}', 'ParticipantController@update');
+Route::delete('participants/{participant}', 'ParticipantController@delete');
 
 /* Admins */
 Route::get('admins', 'AdminController@index');
-Route::get('admins/{id}', 'AdminController@show');
+Route::get('admins/{admin}', 'AdminController@show');
 Route::post('admins', 'AdminController@store');
-Route::put('admins/{id}', 'AdminController@update');
-Route::delete('admins/{id}', 'AdminController@delete');
+Route::put('admins/{admin}', 'AdminController@update');
+Route::delete('admins/{admin}', 'AdminController@delete');
 
 /* Tours */
 Route::get('tours', 'TourController@index');
-Route::get('tours/{id}', 'TourController@show');
+Route::get('tours/{tour}', 'TourController@show');
 Route::post('tours', 'TourController@store');
-Route::put('tours/{id}', 'TourController@update');
-Route::delete('tours/{id}', 'TourController@delete');
+Route::put('tours/{tour}', 'TourController@update');
+Route::delete('tours/{tour}', 'TourController@delete');
 
 /* Teams */
 Route::get('teams', 'TeamController@index');
-Route::get('teams/{id}', 'TeamController@show');
+Route::get('teams/{team}', 'TeamController@show');
 Route::post('teams', 'TeamController@store');
-Route::put('teams/{id}', 'TeamController@update');
-Route::delete('teams/{id}', 'TeamController@delete');
+Route::put('teams/{team}', 'TeamController@update');
+Route::delete('teams/{team}', 'TeamController@delete');

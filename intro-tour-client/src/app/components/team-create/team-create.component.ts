@@ -59,7 +59,22 @@ export class TeamCreateComponent implements OnInit {
       }, 500)      
 	}
 
-	// post call to create a new team
+	// Check if tour exists
+	private checkTourId() {
+		this.http.get(this.apiUrl + 'tours/' + this.team.tour_id)
+		.subscribe(
+			(res:Response) => {
+				this.createTeam();
+			},
+			err => {
+				this.removeLodaer();
+				document.getElementById('tour_id_input').classList.add('error');
+				console.error("Error occured");
+			}
+		);
+	}
+
+	// Post call to create a new team
 	private createTeam() {
 		this.http.post(this.apiUrl + 'teams', this.team)
 		.subscribe(
@@ -67,15 +82,15 @@ export class TeamCreateComponent implements OnInit {
 					this.createUser(res);
         },
         err => {
-					console.log("Error occured");
+					console.error("Error occured");
 					this.removeLodaer();
         }
       );
 	}
 
 	// Post call to create new user
-	private createUser(res) {
-		this.teamId = res.id;
+	private createUser(teamRes) {
+		this.teamId = teamRes.id;
 		this.user.team_id = this.teamId;
 		this.http.post(this.apiUrl + 'participants', this.user)
 		.subscribe(
@@ -83,28 +98,31 @@ export class TeamCreateComponent implements OnInit {
 				this.updateTeam(res);
 			},
 			err => {
-				console.log("Error occured");
+				console.error("Error occured");
 				this.removeLodaer();
 			}
 		);
 	}
 
-	private updateTeam(res) {
-		this.team.team_leader = res.id;
-		this.http.put(this.apiUrl + 'teams/' + this.teamId, this.team)
+	// Updates team to add the id of the team leader
+	private updateTeam(userRes) {
+		this.team.team_leader = userRes.id;
+		console.log(this.team);
+		this.http.put(this.apiUrl + 'teams/' + this.teamId, {team_leader: this.team.team_leader})
 		.subscribe(
 			(res:Response) => {
 				this.hideComponent();
 				this.removeLodaer();
 			},
 			err => {
-				console.log("Error occured");
+				console.error("Error occured");
+				this.removeLodaer();
 			}
 		);
 	}
 
 	public createTeamAndUser() {
-		this.createTeam();
+		this.checkTourId();
 		this.errorHandler();
 	}
 	
