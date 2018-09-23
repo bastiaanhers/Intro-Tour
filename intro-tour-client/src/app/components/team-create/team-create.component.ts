@@ -80,6 +80,7 @@ export class TeamCreateComponent implements OnInit {
 	// Post call to create new user
 	private createUser(res) {
 		this.user.team_id = res.id;
+		this.user.name = this.player.name;
 		this.http.post(this.apiUrl + 'participants', this.user)
 		.subscribe(
 			(res:Response) => {
