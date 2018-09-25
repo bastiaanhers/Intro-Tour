@@ -1,7 +1,7 @@
 <agm-map [latitude]="curLocation.x" [longitude]="curLocation.y" [zoom]="z">
     <agm-marker [latitude]="curLocation.x" [longitude]="curLocation.y" [iconUrl]="icons[0]"></agm-marker>
 
-    <agm-marker *ngFor="let location of locations" [latitude]="location.x" [longitude]="location.y" [iconUrl]="icons[1]">
+    <agm-marker *ngFor="let location of locations" [latitude]="location.x" [longitude]="location.y" [iconUrl]="icons[1]" id="{{location.id}}">
         <agm-circle
             [latitude]="location.x" 
             [longitude]="location.y"
