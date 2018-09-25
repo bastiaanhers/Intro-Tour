@@ -34,7 +34,7 @@ export class TeamCreateComponent implements OnInit {
 
 	private apiUrl: string = 'http://intro-tour.local/api/';
 	private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
-	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer'])};
+	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');	};
 
 	private errorHandler() {
     if(this.team.team_name == "" || this.team.tour_id == null){
@@ -85,7 +85,7 @@ export class TeamCreateComponent implements OnInit {
 		.subscribe(
 			(res:Response) => {
 				this.hideComponent();
-				this.removeLodaer();	
+				this.removeLodaer();
 			},
 			err => {
 				console.log("Error occured");
