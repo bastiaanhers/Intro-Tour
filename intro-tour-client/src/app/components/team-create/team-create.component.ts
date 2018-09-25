@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserNameService } from '../../services/user-name.service'
+import { Router } from '@angular/router';
+import { UserNameService } from '../../services/user-name.service';
+import { TeamService } from '../../services/team.service';
 import { Team } from '../../team';
 import { User } from '../../user';
  
@@ -13,13 +15,13 @@ import * as $ from 'jquery';
 })
 export class TeamCreateComponent implements OnInit {
 
-	constructor(private http: HttpClient, private userName: UserNameService) { }
+	constructor(private http: HttpClient, private router: Router, private userName: UserNameService, private teamService: TeamService) { }
 	
 	public team: Team = {
 		team_name: '',
 		tour_id: null,
 		team_leader: 0,
-		team_pin: 1234
+		team_pin: '1234'
 	}
 	public user: User = {
 		name: 'Klaas',
@@ -78,7 +80,8 @@ export class TeamCreateComponent implements OnInit {
 	private createTeam() {
 		this.http.post(this.apiUrl + 'teams', this.team)
 		.subscribe(
-        (res:Response) => {
+        (res:Team) => {
+					this.team.team_pin = res.team_pin;
 					this.createUser(res);
         },
         err => {
@@ -111,8 +114,9 @@ export class TeamCreateComponent implements OnInit {
 		this.http.put(this.apiUrl + 'teams/' + this.teamId, {team_leader: this.team.team_leader})
 		.subscribe(
 			(res:Response) => {
-				this.hideComponent();
+				this.sendTeamInfoToNextPage();
 				this.removeLodaer();
+				this.router.navigateByUrl('home');
 			},
 			err => {
 				console.error("Error occured");
@@ -126,8 +130,20 @@ export class TeamCreateComponent implements OnInit {
 		this.errorHandler();
 	}
 	
+	private sendTeamInfoToNextPage() {
+		this.teamService.teamName(this.team.team_name);
+		this.teamService.teamPin(this.team.team_pin);
+	}
+
 	ngOnInit() {
 		// Subscribe to name service
 		this.userName.currentName.subscribe(name => this.user.name = name);
+		// Subscribe to team service
+		// this.teamService.currentTeamName.subscribe(
+    //   ([teamName, teamPin]) => {
+    //     this.team.team_name = teamName;
+    //     this.team.team_pin = teamPin;
+    //   }
+    // );
 	}
 }
