@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserNameService } from '../../services/user-name.service';
 import { TeamService } from '../../services/team.service';
+import { MessageTypes } from '../../message-types';
+import { MessagesService } from '../../services/messages.service';
 import { Team } from '../../team';
 import { User } from '../../user';
  
@@ -15,7 +17,7 @@ import * as $ from 'jquery';
 })
 export class TeamCreateComponent implements OnInit {
 
-	constructor(private http: HttpClient, private router: Router, private userName: UserNameService, private teamService: TeamService) { }
+	constructor(private http: HttpClient, private router: Router, private userName: UserNameService, private teamService: TeamService, private messagesServices: MessagesService) { }
 	
 	public team: Team = {
 		team_name: '',
@@ -36,15 +38,16 @@ export class TeamCreateComponent implements OnInit {
 
 	private errorHandler() {
     if(this.team.team_name == "" || this.team.tour_id == null){
-      document.getElementById('error_message').classList.remove('hidden');
+      //document.getElementById('error_message').classList.remove('hidden');
       if(this.team.team_name == ""){
-        document.getElementById('name_input').classList.add('error');
-        
+		document.getElementById('name_input').classList.add('error');
+		this.messagesServices.setMessage(MessageTypes.Error, 'Test Error', 'This is an test error');
       }else{
-        document.getElementById('name_input').classList.remove('error');
+		document.getElementById('name_input').classList.remove('error');
       }
       if(this.team.tour_id == null){
-        document.getElementById('tour_id_input').classList.add('error');
+		document.getElementById('tour_id_input').classList.add('error');
+		this.messagesServices.setMessage(MessageTypes.Error, 'Test Error', 'This is an test error');
       }else{
         document.getElementById('tour_id_input').classList.remove('error');
       }
