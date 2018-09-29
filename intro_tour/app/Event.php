@@ -6,8 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    public function questions()
+    protected $casts = [
+        'trigger' => 'array',
+        'action' => 'array'
+    ];
+    protected $fillable = [
+        'trigger', 'action'
+    ];
+    public function question()
     {
-        return $this->hasMany('App\Question', 'id', 'action.data.question_id');
+        return $this->hasOne('App\Question', 'id', 'action->data->question_id');
     }
 }

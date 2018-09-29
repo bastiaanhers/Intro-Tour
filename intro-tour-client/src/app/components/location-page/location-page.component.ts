@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LOCATIONS } from '../../mock-locations';
-import { QUESTIONS } from '../../mock-questions';
-
+import { EventService } from '../../services/event.service';
+import { QuestionService } from '../../services/question.service';
+import { LocationService } from '../../services/location.service';
 @Component({
   selector: 'app-location-page',
   templateUrl: './location-page.component.html',
@@ -10,10 +11,12 @@ import { QUESTIONS } from '../../mock-questions';
 export class LocationPageComponent implements OnInit {
   z: number;
   icons: Array<any>;
+  public questions = [];
+  public locations = [];
 
   ky;kx;dy;dx;km;
 
-  locations = LOCATIONS;
+  public events;
 
   curLocation = {
     id: null,
@@ -29,8 +32,8 @@ export class LocationPageComponent implements OnInit {
 
   isTracking = false;
 
-  constructor() { 
-
+  constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService) { 
+    this.getEvents();
   }
 
 
@@ -47,6 +50,7 @@ export class LocationPageComponent implements OnInit {
         scaledSize: {height: 40,width: 40}
       }
     ];
+    //this.getEvents();
   }
 
 
@@ -81,13 +85,13 @@ export class LocationPageComponent implements OnInit {
   }
 
   public arePointsNear(location){
-    this.km = location.radius / 1000;
+    this.km = location.radius.data / 1000;
 
     this.ky = 40000 / 360;
     this.kx = Math.cos(Math.PI * location.x / 180.0) * this.ky;
     
-    this.dx = Math.abs(location.y - this.curLocation.y) * this.kx;
-    this.dy = Math.abs(location.x - this.curLocation.x) * this.ky;
+    this.dx = Math.abs(location.longitude - this.curLocation.y) * this.kx;
+    this.dy = Math.abs(location.latitude - this.curLocation.x) * this.ky;
 
     return Math.sqrt(this.dx * this.dx + this.dy * this.dy) <= this.km;
   }
@@ -97,5 +101,32 @@ export class LocationPageComponent implements OnInit {
   }
   public hideWindow(id){
     document.getElementById(`popup-${id}`).style.display = 'none';
+  }
+  public getEvents(){
+    this._eventService.getEvents()
+        .subscribe((res: any) => {
+          this.getLocation(res);
+        });
+  }
+  public getQuestion(events){
+    events.forEach((event, index) => {
+      this._questionService.getQuestion(event.event.action.data.question_id)
+          .subscribe((res: any) => {
+            res[0].location_id = event.event.action.data.question_id;
+
+            delete res[0].event_type;
+            
+            this.questions.push(res[0]);
+          });
+    });
+  }
+  public getLocation(events){
+    events.forEach(event => {
+      this._locationService.getLocation(event.event.trigger.data.location_id)
+          .subscribe((res: any) => {
+            this.locations.push(res[0]);
+            console.log(this.locations);
+          });
+    });
   }
 }

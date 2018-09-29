@@ -3,30 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Event;
-use App\event_tour;
-use Response;
-use DB;
+use App\Question;
 
-class EventController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        // $events = DB::table('event_tour')
-        // ->join('tours', 'tour_id', '=', 'tours.id')
-        // ->join('events', 'event_id', '=', 'events.id')
-        // ->get();
+        $questions = Question::where('id', $id)->get();
 
-        $events = event_tour::with('event')
-        ->with('tour')
-        ->get();
-
-        return $events;
+        return $questions;
     }
 
     /**

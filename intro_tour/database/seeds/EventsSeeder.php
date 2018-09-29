@@ -14,14 +14,42 @@ class EventsSeeder extends Seeder
         DB::table('events')->insert 
         ([
         [
-        'trigger' => '{"type": "time","data": {"time_passed": 60}}',
-        'action' => '{"type": "message","data": "this is a message for all emo kids"}',
+        'trigger' => [
+            "type" => "time",
+            "data" => [
+                "time_passed" => 60
+            ]
+        ],
+        'action' => [
+            "type" => "message",
+            "data" => "this is a message for all emo kids"
+        ],
         ],[
-        'trigger' => '{"type": "location","data": {"location_id": 1}}',
-        'action' => '{"type":"question","data":{"question_id":1}}',
+        'trigger' => [
+            "type" => "location",
+            "data" => [
+                "location_id" => 1
+            ]
+        ],
+        'action' => [
+            "type" => "question",
+            "data" => [
+                "question_id" => 1
+            ]
+        ],
         ],[
-        'trigger' => '{"type": "questions_answerd","data": {"amount": 2}}',
-        'action' => '{"type":"question","data":{"question_id":3}}',
+        'trigger' => [
+            "type" => "questions_answerd",
+            "data" => [
+                "amount" => 2
+            ]
+        ],
+        'action' => [
+            "type" => "question",
+            "data" => [
+                "question_id" => 3
+            ]
+        ],
         ]
         ]);
 

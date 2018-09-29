@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserNameService } from '../../services/user-name.service';
 import { Router } from '@angular/router';
-import {Player} from '../../player';
+import { Player } from '../../player';
 import { Team } from '../../team';
 import { User } from '../../user';
  

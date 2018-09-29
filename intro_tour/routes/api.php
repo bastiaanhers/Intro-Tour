@@ -6,6 +6,8 @@ use App\Admin;
 use App\Tour;
 use App\Team;
 use App\Event;
+use App\Location;
+use App\Question;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +65,7 @@ Route::put('teams/{team}', 'TeamController@update');
 Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
+// locations
+Route::get('locations/{id}', 'LocationController@index');
+//questions
+Route::get('questions/{id}', 'QuestionController@index');
