@@ -34,6 +34,17 @@ agm-map{
     margin: 10px 0px 0px 20px;
     font-weight: bold;
 }
+.q-options{
+    margin: 10px 0px 0px 20px;
+    font-family: 'Bree Serif', serif;
+    font-size: 23px;
+}
+.btn{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}
 @keyframes animatebottom {
     from {top: 80%; opacity: 0;}
     to {top: 10%; opacity: 1;}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LOCATIONS } from '../../mock-locations';
 import { EventService } from '../../services/event.service';
 import { QuestionService } from '../../services/question.service';
 import { LocationService } from '../../services/location.service';
@@ -11,7 +10,8 @@ import { LocationService } from '../../services/location.service';
 export class LocationPageComponent implements OnInit {
   z: number;
   icons: Array<any>;
-  public questions = [];
+  private given_answer;
+  public question;
   public locations = [];
 
   ky;kx;dy;dx;km;
@@ -50,7 +50,6 @@ export class LocationPageComponent implements OnInit {
         scaledSize: {height: 40,width: 40}
       }
     ];
-    //this.getEvents();
   }
 
 
@@ -63,7 +62,7 @@ export class LocationPageComponent implements OnInit {
         {maximumAge:600000, timeout:5000, enableHighAccuracy: true}
       );  
     }else{
-      alert("geolocation is not supported by your browser");
+      alert("Je locatie kan helaas niet worden gevonden");
     }
   }
 
@@ -76,8 +75,9 @@ export class LocationPageComponent implements OnInit {
 
   public showHidePopup(){
     this.locations.forEach(location => {
+      console.log(this.arePointsNear(location));
       if(this.arePointsNear(location)){
-        this.showWindow(location.id);
+        this.showWindow(location);
       }else if(!this.arePointsNear(location)){
         this.hideWindow(location.id);
       }
@@ -88,7 +88,7 @@ export class LocationPageComponent implements OnInit {
     this.km = location.radius.data / 1000;
 
     this.ky = 40000 / 360;
-    this.kx = Math.cos(Math.PI * location.x / 180.0) * this.ky;
+    this.kx = Math.cos(Math.PI * location.latitude / 180.0) * this.ky;
     
     this.dx = Math.abs(location.longitude - this.curLocation.y) * this.kx;
     this.dy = Math.abs(location.latitude - this.curLocation.x) * this.ky;
@@ -96,8 +96,13 @@ export class LocationPageComponent implements OnInit {
     return Math.sqrt(this.dx * this.dx + this.dy * this.dy) <= this.km;
   }
 
-  public showWindow(id){
-    document.getElementById(`popup-${id}`).style.display = 'block';
+  public showWindow(location){
+    this._questionService.getQuestion(location.question_id)
+        .subscribe((question) => {
+          this.question = question[0]; 
+          console.log(this.question)
+          document.getElementById(`popup-${location.id}`).style.display = 'block';
+        });
   }
   public hideWindow(id){
     document.getElementById(`popup-${id}`).style.display = 'none';
@@ -108,25 +113,41 @@ export class LocationPageComponent implements OnInit {
           this.getLocation(res);
         });
   }
-  public getQuestion(events){
-    events.forEach((event, index) => {
-      this._questionService.getQuestion(event.event.action.data.question_id)
-          .subscribe((res: any) => {
-            res[0].location_id = event.event.action.data.question_id;
-
-            delete res[0].event_type;
-            
-            this.questions.push(res[0]);
-          });
-    });
+  public getQuestion(id){
+    this._questionService.getQuestion(id).subscribe((question) => {this.question = question[0]; console.log(this.question)});
   }
   public getLocation(events){
     events.forEach(event => {
       this._locationService.getLocation(event.event.trigger.data.location_id)
           .subscribe((res: any) => {
+            res[0].question_id = event.event.action.data.question_id;
             this.locations.push(res[0]);
             console.log(this.locations);
           });
+    });
+  }
+
+  public checkAnswer(id){
+    if(this.given_answer == undefined){
+      alert('Je moet wel een antwoord kiezen');
+    }else if(this.given_answer == 1){
+      alert('Goed Gedaan!');
+      this.hideWindow(id);
+      this.deleteLocation(id);
+    }else{
+      alert('Helaas');
+      this.hideWindow(id);
+      this.deleteLocation(id);
+    }
+  }
+  public setValue(answer){
+    this.given_answer = answer;
+  }
+  private deleteLocation(id){ 
+    this.locations.forEach((location, index) => {
+      if(location.id == id){
+        this.locations.splice(index, 1);
+      }
     });
   }
 }

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
-
+use DB;
+use Response;
 class QuestionController extends Controller
 {
     /**
@@ -13,8 +14,8 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($id)
-    {
-        $questions = Question::where('id', $id)->get();
+    {//->join('answers', 'questions.id', '=', 'answers.question_id')
+        $questions = Question::with('answers')->where('questions.id', $id)->get();
 
         return $questions;
     }

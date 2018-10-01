@@ -12,8 +12,13 @@
 
 <div *ngFor="let location of locations">
     <div id="popup-{{location.id}}" class="question-pop-up">
-        <div class="question-popup-content">
-            <!-- <p class="q-title" *ngIf="location.question.text != undifined">{{location.question.text}}</p> -->
+        <div class="question-popup-content" *ngIf="question != undifined">
+            <form (ngSubmit)="checkAnswer(location.id)">
+                <p class="q-title" >{{question.question}}</p>
+                <p class="q-options" *ngFor="let answer of question.answers"><input type="radio" name="answer" (click)="setValue(answer.right_answer)"> {{answer.answer}}.</p>
+                <button type="submit" class="big one ui green button btn">Controleer</button>                
+            </form>
+
         </div>
     <div>   
 </div>
