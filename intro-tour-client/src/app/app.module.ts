@@ -1,16 +1,50 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {RouterModule, Routes} from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import {AgmCoreModule} from '@agm/core';
+
+import { UserNameService } from './services/user-name.service';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { LocationPageComponent } from './components/location-page/location-page.component';
+import { NavigateComponent } from './components/navigate/navigate.component';
+import { TeamCreateComponent } from './components/team-create/team-create.component';
+
+const appRoutes: Routes = [
+  {path: 'location', component: LocationPageComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'team-create', component: TeamCreateComponent},
+  {path: 'login', component: LoginComponent}
+]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    LocationPageComponent,
+    NavigateComponent,
+    TeamCreateComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: true}
+    ),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc'
+    })
   ],
-  providers: [],
+  providers: [UserNameService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+}
