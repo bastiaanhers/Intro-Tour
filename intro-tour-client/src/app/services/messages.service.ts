@@ -27,21 +27,28 @@ export class MessagesService {
         cssClass = 'success';
         break;
     }
+    // Prevent messages from overlapping
+    let topCss: string = '';
+    if ($('.ui.message.generated').length > 0) {
+      let topPx: number = 60 + ($('.ui.message.generated').outerHeight() * $('.ui.message.generated').length);
+      topCss = 'top:' + topPx + 'px;';
+    }
+
     // Mesage html template
     let htmlTemplate:string = 
-    `<div id="error_message" class="ui ${cssClass} message transition">
+    `<div class="ui ${cssClass} message transition generated" style="${topCss}">
       <i class="close icon"></i>
       <div class="header">
         ${title}
       </div>
       <p>${message}</p>
     </div>`;
-    
+
     // Insert message into page
     $(htmlTemplate).insertAfter('header');
     // Add jquery to close message
     $(".close.icon").click(function(){
-      $(this).parent().hide();
+      $(this).parent().remove();
     });
   }
 }

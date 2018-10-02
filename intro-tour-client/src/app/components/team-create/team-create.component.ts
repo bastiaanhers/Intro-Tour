@@ -41,13 +41,13 @@ export class TeamCreateComponent implements OnInit {
       //document.getElementById('error_message').classList.remove('hidden');
       if(this.team.team_name == ""){
 		document.getElementById('name_input').classList.add('error');
-		this.messagesServices.setMessage(MessageTypes.Error, 'Test Error', 'This is an test error');
+		this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TEAM NAAM is verplicht');
       }else{
 		document.getElementById('name_input').classList.remove('error');
       }
       if(this.team.tour_id == null){
 		document.getElementById('tour_id_input').classList.add('error');
-		this.messagesServices.setMessage(MessageTypes.Error, 'Test Error', 'This is an test error');
+		this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TOUR ID is verplicht');
       }else{
         document.getElementById('tour_id_input').classList.remove('error');
       }
@@ -66,17 +66,20 @@ export class TeamCreateComponent implements OnInit {
 
 	// Check if tour exists
 	private checkTourId() {
-		this.http.get(this.apiUrl + 'tours/' + this.team.tour_id)
-		.subscribe(
-			(res:Response) => {
-				this.createTeam();
-			},
-			err => {
-				this.removeLodaer();
-				document.getElementById('tour_id_input').classList.add('error');
-				console.error("Error occured");
-			}
-		);
+		if (this.team.tour_id !== null) {
+			this.http.get(this.apiUrl + 'tours/' + this.team.tour_id)
+			.subscribe(
+				(res:Response) => {
+					this.createTeam();
+				},
+				err => {
+					this.removeLodaer();
+					document.getElementById('tour_id_input').classList.add('error');
+					this.messagesServices.setMessage(MessageTypes.Error, 'Fout', 'Tour ID bestaat niet');
+					console.error(err);
+				}
+			);
+		}
 	}
 
 	// Post call to create a new team
@@ -84,12 +87,13 @@ export class TeamCreateComponent implements OnInit {
 		this.http.post(this.apiUrl + 'teams', this.team)
 		.subscribe(
         (res:Team) => {
-					this.team.team_pin = res.team_pin;
-					this.createUser(res);
+			this.team.team_pin = res.team_pin;
+			this.createUser(res);
         },
         err => {
-					console.error("Error occured");
-					this.removeLodaer();
+			console.error(err);
+			this.removeLodaer();
+			this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
         }
       );
 	}
@@ -104,8 +108,9 @@ export class TeamCreateComponent implements OnInit {
 				this.updateTeam(res);
 			},
 			err => {
-				console.error("Error occured");
+				console.error(err);
 				this.removeLodaer();
+				this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
 			}
 		);
 	}
@@ -122,8 +127,9 @@ export class TeamCreateComponent implements OnInit {
 				this.router.navigateByUrl('home');
 			},
 			err => {
-				console.error("Error occured");
+				console.error(err);
 				this.removeLodaer();
+				this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
 			}
 		);
 	}
