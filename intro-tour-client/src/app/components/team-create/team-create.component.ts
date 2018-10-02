@@ -150,7 +150,7 @@ export class TeamCreateComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.username.currentName.subscribe(name => this.player.name = name);
+		this.userName.currentName.subscribe(name => this.player.name = name);
 		if(this.player.name == 'John Doe' || this.player.name == undefined){
 			this.router.navigateByUrl('/login');
 		}else{

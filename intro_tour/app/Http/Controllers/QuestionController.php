@@ -13,9 +13,9 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {//->join('answers', 'questions.id', '=', 'answers.question_id')
-        $questions = Question::with('answers')->where('questions.id', $id)->get();
+    public function index()
+    {
+        $questions = Question::with('answers')->get();
 
         return $questions;
     }
@@ -49,7 +49,9 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+        $questions = Question::with('answers')->where('questions.id', $id)->get();
+
+        return $questions;
     }
 
     /**

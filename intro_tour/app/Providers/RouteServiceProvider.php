@@ -79,6 +79,9 @@ class RouteServiceProvider extends ServiceProvider
                 Route::apiResource('/tours','TourController');
                 Route::apiResource('/teams','TeamController');
                 Route::apiResource('/participants','ParticipantController');
+                Route::apiResource('/events','EventController');
+                Route::apiResource('/locations','LocationController');
+                Route::apiResource('/questions','QuestionController');
         });
     }
 }
