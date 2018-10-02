@@ -37,113 +37,29 @@ use App\Team;
 // });
 
 /* Participants routes */
-Route::get('participants', function() {
-    // If the Content-Type and Accept headers are set to 'application/json', 
-    // this will return a JSON structure. This will be cleaned up later.
-    return Participant::all();
-});
- 
-Route::get('participants/{id}', function($id) {
-    return Participant::find($id);
-});
-
-Route::post('participants', function(Request $request) {
-    return Participant::create($request->all());
-});
-
-Route::put('participants/{id}', function(Request $request, $id) {
-    $participant = Participant::findOrFail($id);
-    $participant->update($request->all());
-
-    return $participant;
-});
-
-Route::delete('participants/{id}', function($id) {
-    Participant::find($id)->delete();
-
-    return 204;
-});
+Route::get('participants', 'ParticipantController@index');
+Route::get('participants/{participant}', 'ParticipantController@show');
+Route::post('participants', 'ParticipantController@store');
+Route::put('participants/{participant}', 'ParticipantController@update');
+Route::delete('participants/{participant}', 'ParticipantController@delete');
 
 /* Admins */
-Route::get('admins', function() {
-    // If the Content-Type and Accept headers are set to 'application/json', 
-    // this will return a JSON structure. This will be cleaned up later.
-    return Admin::all();
-});
- 
-Route::get('admins/{id}', function($id) {
-    return Admin::find($id);
-});
-
-Route::post('admins', function(Request $request) {
-    return Admin::create($request->all);
-});
-
-Route::put('admins/{id}', function(Request $request, $id) {
-    $admin = Admin::findOrFail($id);
-    $admin->update($request->all());
-
-    return $admin;
-});
-
-Route::delete('admins/{id}', function($id) {
-    Admin::find($id)->delete();
-
-    return 204;
-});
+Route::get('admins', 'AdminController@index');
+Route::get('admins/{admin}', 'AdminController@show');
+Route::post('admins', 'AdminController@store');
+Route::put('admins/{admin}', 'AdminController@update');
+Route::delete('admins/{admin}', 'AdminController@delete');
 
 /* Tours */
-Route::get('tours', function() {
-    // If the Content-Type and Accept headers are set to 'application/json', 
-    // this will return a JSON structure. This will be cleaned up later.
-    return Tour::all();
-});
- 
-Route::get('tours/{id}', function($id) {
-    return Tour::find($id);
-});
-
-Route::post('tours', function(Request $request) {
-    return Tour::create($request->all());
-});
-
-Route::put('tours/{id}', function(Request $request, $id) {
-    $tour = Tour::findOrFail($id);
-    $tour->update($request->all());
-
-    return $tour;
-});
-
-Route::delete('tours/{id}', function($id) {
-    Tour::find($id)->delete();
-
-    return 204;
-});
+Route::get('tours', 'TourController@index');
+Route::get('tours/{tour}', 'TourController@show');
+Route::post('tours', 'TourController@store');
+Route::put('tours/{tour}', 'TourController@update');
+Route::delete('tours/{tour}', 'TourController@delete');
 
 /* Teams */
-Route::get('teams', function() {
-    // If the Content-Type and Accept headers are set to 'application/json', 
-    // this will return a JSON structure. This will be cleaned up later.
-    return Team::all();
-});
- 
-Route::get('teams/{id}', function($id) {
-    return Team::find($id);
-});
-
-Route::post('teams', function(Request $request) {
-    return Team::create($request->all());
-});
-
-Route::put('teams/{id}', function(Request $request, $id) {
-    $team = Team::findOrFail($id);
-    $team->update($request->all());
-
-    return $team;
-});
-
-Route::delete('teams/{id}', function($id) {
-    Team::find($id)->delete();
-
-    return 204;
-});
+Route::get('teams', 'TeamController@index');
+Route::get('teams/{team}', 'TeamController@show');
+Route::post('teams', 'TeamController@store');
+Route::put('teams/{team}', 'TeamController@update');
+Route::delete('teams/{team}', 'TeamController@delete');
