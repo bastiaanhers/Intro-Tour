@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserNameService } from '../../services/user-name.service'
+import { UserNameService } from '../../services/user-name.service';
+import { Router } from '@angular/router';
+import { Player } from '../../player';
 import { Team } from '../../team';
 import { User } from '../../user';
  
@@ -13,8 +15,13 @@ import * as $ from 'jquery';
 })
 export class TeamCreateComponent implements OnInit {
 
-	constructor(private http: HttpClient, private userName: UserNameService) { }
-	
+	constructor(private http: HttpClient, private username: UserNameService, private router: Router) { }
+
+
+  player: Player = {
+    name: "",
+    tour_id: null
+  }
 	team: Team = {
 		team_name: '',
     tour_id: null
@@ -27,7 +34,7 @@ export class TeamCreateComponent implements OnInit {
 
 	private apiUrl: string = 'http://intro-tour.local/api/';
 	private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
-	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer'])};
+	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');	};
 
 	private errorHandler() {
     if(this.team.team_name == "" || this.team.tour_id == null){
@@ -73,11 +80,12 @@ export class TeamCreateComponent implements OnInit {
 	// Post call to create new user
 	private createUser(res) {
 		this.user.team_id = res.id;
+		this.user.name = this.player.name;
 		this.http.post(this.apiUrl + 'participants', this.user)
 		.subscribe(
 			(res:Response) => {
 				this.hideComponent();
-				this.removeLodaer();	
+				this.removeLodaer();
 			},
 			err => {
 				console.log("Error occured");
@@ -92,6 +100,12 @@ export class TeamCreateComponent implements OnInit {
 	}
 	
 	ngOnInit() {
-		this.userName.currentName.subscribe(name => this.user.name = name);
+		this.username.currentName.subscribe(name => this.player.name = name);
+		if(this.player.name == 'John Doe' || this.player.name == undefined){
+			this.router.navigateByUrl('/login');
+		}else{
+			console.log(this.player);
+		}
+		
 	}
 }

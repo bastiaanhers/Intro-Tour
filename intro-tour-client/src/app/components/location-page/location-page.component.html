@@ -1,19 +1,25 @@
-<br><br><br>
 <agm-map [latitude]="curLocation.x" [longitude]="curLocation.y" [zoom]="z">
     <agm-marker [latitude]="curLocation.x" [longitude]="curLocation.y" [iconUrl]="icons[0]"></agm-marker>
 
-    <agm-marker *ngFor="let location of locations" [latitude]="location.x" [longitude]="location.y" [iconUrl]="icons[1]">
+    <agm-marker *ngFor="let location of locations" [latitude]="location.latitude" [longitude]="location.longitude" [iconUrl]="icons[1]" id="{{location.id}}">
         <agm-circle
-            [latitude]="location.x" 
-            [longitude]="location.y"
-            [radius]="location.radius"
+            [latitude]="location.latitude" 
+            [longitude]="location.longitude"
+            [radius]="location.radius.data"
         ></agm-circle>
     </agm-marker>
 </agm-map>
 
 <div *ngFor="let location of locations">
     <div id="popup-{{location.id}}" class="question-pop-up">
-        <p class="q-title" *ngIf="location.question.text != undifined">{{location.question.text}}</p>
+        <div class="question-popup-content" *ngIf="question != undifined">
+            <form (ngSubmit)="checkAnswer(location.id)">
+                <p class="q-title" >{{question.question}}</p>
+                <p class="q-options" *ngFor="let answer of question.answers"><input type="radio" name="answer" (click)="setValue(answer.right_answer)"> {{answer.answer}}.</p>
+                <button type="submit" class="big one ui green button btn">Controleer</button>                
+            </form>
+
+        </div>
     <div>   
 </div>
 
