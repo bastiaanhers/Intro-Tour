@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Player} from '../../player';
+import { UserNameService } from '../../services/user-name.service';
+import { Router } from '@angular/router';
 
 import * as $ from 'jquery';
+
+
 
 @Component({
   selector: 'app-login',
@@ -9,40 +13,28 @@ import * as $ from 'jquery';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor() { }
+  constructor(private username: UserNameService, private router: Router) { }
+
+  name
 
   player: Player = {
     name: "",
     tour_id: null
   }
+
   ngOnInit() {
-    
+    this.username.currentName.subscribe(name => this.player.name = name);
   }
 
-  hideElement(){
-    if(this.player.name == "" || this.player.tour_id == null){
-      document.getElementById('error_message').classList.remove('hidden');
-      if(this.player.name == ""){
-        document.getElementById('name_input').classList.add('error');
-        
-      }else{
-        document.getElementById('name_input').classList.remove('error');
-      }
-      if(this.player.tour_id == null){
-        document.getElementById('tour_id_input').classList.add('error');
-      }else{
-        document.getElementById('tour_id_input').classList.remove('error');
-      }
+  goToPage(page) {
+    if(this.name != undefined){
+      this.username.newName(this.name);
+      this.router.navigateByUrl(page);
     }else{
-      console.log(this.player);
-      document.getElementById('error_message').classList.add('hidden');
-      $('app-login div').animate({top: '100%', height: '0px'}, 500);
-      setTimeout(() => {
-        $('app-login').css('display', 'none');
-      }, 500)       
+      alert('naam niet ingevuld! vul A.U.B. een naam in');
     }
-     
   }
+
   get Player() {
     return this.player;
   }

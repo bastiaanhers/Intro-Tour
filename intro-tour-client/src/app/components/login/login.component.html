@@ -6,17 +6,15 @@
       <p>Het lijkt erop dat je niet alle velden hebt ingevult</p>
     </div>
   <div id="login-element">
-    <form action="">
-      <h2>INTRO TOUR</h2><br>
+    <h2>INTRO TOUR</h2><br>
       <div class="ui massive input" id="name_input">
-        <input  [(ngModel)]="player.name" type="text" placeholder="Naam" name="name">
-      </div><br>
-      <div class="ui massive input" id="tour_id_input">
-        <input  [(ngModel)]="player.tour_id" type="number" placeholder="Tour ID" (keyup.enter)="onKeyUp()" name="tour_id">
+        <input  [(ngModel)]="name" type="text" placeholder="Naam" name="name" required>
       </div><br>
       <div>
-        <input id="login-button" type="submit" class="massive one ui blue button" value="GO!" (click)="hideElement()" >
-      </div>      
-    </form>
+        <input type="submit" class="massive one ui blue button" value="Maak een Team" (click)="goToPage('team-create')">
+      </div><br>
+      <div>
+        <input type="submit" class="massive one ui teal button" value="Join een Team" (click)="goToPage('join-team')">
+      </div>
   </div>
 </div>

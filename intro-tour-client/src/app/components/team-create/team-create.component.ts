@@ -5,6 +5,7 @@ import { UserNameService } from '../../services/user-name.service';
 import { TeamService } from '../../services/team.service';
 import { MessageTypes } from '../../message-types';
 import { MessagesService } from '../../services/messages.service';
+import { Player } from '../../player';
 import { Team } from '../../team';
 import { User } from '../../user';
  
@@ -18,8 +19,12 @@ import * as $ from 'jquery';
 export class TeamCreateComponent implements OnInit {
 
 	constructor(private http: HttpClient, private router: Router, private userName: UserNameService, private teamService: TeamService, private messagesServices: MessagesService) { }
-	
-	public team: Team = {
+  
+  player: Player = {
+    name: "",
+    tour_id: null
+  }
+	team: Team = {
 		team_name: '',
 		tour_id: null,
 		team_leader: 0,
@@ -34,7 +39,7 @@ export class TeamCreateComponent implements OnInit {
 
 	private apiUrl: string = 'http://intro-tour.local/api/';
 	private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
-	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer'])};
+	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');	};
 
 	private errorHandler() {
     if(this.team.team_name == "" || this.team.tour_id == null){
@@ -145,14 +150,11 @@ export class TeamCreateComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		// Subscribe to name service
-		this.userName.currentName.subscribe(name => this.user.name = name);
-		// Subscribe to team service
-		// this.teamService.currentTeamName.subscribe(
-    //   ([teamName, teamPin]) => {
-    //     this.team.team_name = teamName;
-    //     this.team.team_pin = teamPin;
-    //   }
-    // );
+		this.username.currentName.subscribe(name => this.player.name = name);
+		if(this.player.name == 'John Doe' || this.player.name == undefined){
+			this.router.navigateByUrl('/login');
+		}else{
+			console.log(this.player);
+		}
 	}
 }
