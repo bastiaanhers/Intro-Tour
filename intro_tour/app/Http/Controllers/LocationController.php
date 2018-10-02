@@ -2,20 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Team;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use DB;
+use App\Location;
 
-class TeamController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return Team::all();
+        $locations = Location::where('id', $id)->get();
+        
+        return $locations;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,50 +38,51 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
-        // Generates team pin
-        $requestData['team_pin'] = strtoupper(substr(md5(uniqid(mt_rand(), true)) , 0, 4));
-
-        $team = Team::create($requestData);
-
-        return response()->json($team, 201);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Team  $team
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show($id)
     {
-        return $team;
+        //
     }
-    
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Team  $team
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, $id)
     {
-        $team->update($request->all());
-
-        return response()->json($team, 200);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Team  $team
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Team $team)
+    public function destroy($id)
     {
-        $team->delete();
-
-        return response()->json(null, 204);
+        //
     }
 }

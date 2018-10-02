@@ -1,5 +1,5 @@
 agm-map{
-    height: 200px;
+    height: 100%;
 }
 .question-pop-up{
     display: none; /* Hidden by default */
@@ -16,11 +16,14 @@ agm-map{
     left: 5%;
     top: 10%;
     z-index: 10000;
+
     height: 80%;
     width: 90%;
     background: white;
     border-radius: 3px;
     box-shadow: 3px 3px 10px 1px rgba(0,0,0,.3);
+
+
     animation-name: animatebottom;
     animation-duration: .25s;
 }
@@ -35,7 +38,18 @@ agm-map{
     margin: 10px 0px 0px 20px;
     font-weight: bold;
 }
+.q-options{
+    margin: 10px 0px 0px 20px;
+    font-family: 'Bree Serif', serif;
+    font-size: 23px;
+}
+.btn{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}
 @keyframes animatebottom {
-    from {top: 80%; opacity: 0}
-    to {top: 10%; opacity: 1}
+    from {top: 80%; opacity: 0;}
+    to {top: 10%; opacity: 1;}
 }
