@@ -45,24 +45,28 @@ Route::get('participants/{participant}', 'ParticipantController@show');
 Route::post('participants', 'ParticipantController@store');
 Route::put('participants/{participant}', 'ParticipantController@update');
 Route::delete('participants/{participant}', 'ParticipantController@delete');
+
 /* Admins */
 Route::get('admins', 'AdminController@index');
 Route::get('admins/{admin}', 'AdminController@show');
 Route::post('admins', 'AdminController@store');
 Route::put('admins/{admin}', 'AdminController@update');
 Route::delete('admins/{admin}', 'AdminController@delete');
+
 /* Tours */
 Route::get('tours', 'TourController@index');
 Route::get('tours/{tour}', 'TourController@show');
 Route::post('tours', 'TourController@store');
 Route::put('tours/{tour}', 'TourController@update');
 Route::delete('tours/{tour}', 'TourController@delete');
+
 /* Teams */
 Route::get('teams', 'TeamController@index');
 Route::get('teams/{team}', 'TeamController@show');
 Route::post('teams', 'TeamController@store');
 Route::put('teams/{team}', 'TeamController@update');
 Route::delete('teams/{team}', 'TeamController@delete');
+
 /* Events */
 Route::get('events', 'EventController@index');
 // locations
