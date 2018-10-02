@@ -13,9 +13,9 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $locations = Location::where('id', $id)->get();
+        $locations = Location::all();
         
         return $locations;
     }
@@ -49,7 +49,9 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        $locations = Location::where('id', $id)->get();
+        
+        return $locations;
     }
 
     /**
