@@ -4,7 +4,8 @@ agm-map{
 .question-pop-up{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 10000; /* Sit on top */
+    background-color: white;
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -19,7 +20,7 @@ agm-map{
 
     height: 80%;
     width: 90%;
-    background: white;
+    background-color: white;
     border-radius: 3px;
     box-shadow: 3px 3px 10px 1px rgba(0,0,0,.3);
 
