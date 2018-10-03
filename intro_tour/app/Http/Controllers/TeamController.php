@@ -26,7 +26,11 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $tour = Tour::create($request->all());
+        $requestData = $request->all();
+        // Generates team pin
+        $requestData['team_pin'] = strtoupper(substr(md5(uniqid(mt_rand(), true)) , 0, 4));
+
+        $team = Team::create($requestData);
 
         return response()->json($team, 201);
     }

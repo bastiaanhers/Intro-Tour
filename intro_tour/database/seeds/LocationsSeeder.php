@@ -16,13 +16,17 @@ class LocationsSeeder extends Seeder
         [
         'name' => "test position",
         'description' => "this is a test postition",
-        'radius' => [
-            "type" => 'circle',
-            "data" => 12
+        'radius' => '{"type": "circle", "data": 12}',
+        'longitude' => 4.683647,
+        'latitude' => 51.798856,
         ],
-        'longitude' => 51.798856,
-        'latitude' => 4.683647,
-        ]    
+        [
+        'name' => "test position 2",
+        'description' => "this is a test postition 2",
+        'radius' => '{"type": "circle", "data": 12}',
+        'longitude' => 4.783647,
+        'latitude' => 51.898856,
+        ]
         ]);
     }
 }

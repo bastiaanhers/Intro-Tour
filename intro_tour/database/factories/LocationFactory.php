@@ -10,7 +10,7 @@ $factory->define(App\Location::class, function (Faker $faker) {
             "type" => "circle",
             "data" => 12
         ],
-        'longitude' => 51.798856,
-        'latitude' => 4.683647
+        'longitude' => 51,
+        'latitude' => 4
     ];
 });

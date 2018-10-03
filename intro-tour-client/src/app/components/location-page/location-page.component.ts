@@ -95,6 +95,7 @@ export class LocationPageComponent implements OnInit {
     return Math.sqrt(this.dx * this.dx + this.dy * this.dy) <= this.km;
   }
 
+
   public showWindow(location){
     this._questionService.getQuestion(location.question_id)
         .subscribe((question) => {
