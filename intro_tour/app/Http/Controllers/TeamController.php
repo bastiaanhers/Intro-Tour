@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class TeamController extends Controller
 {
@@ -13,9 +14,15 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Team::all();
+		if ($request->tour) {
+			$id = $request->tour;
+			return Team::where('tour_id', $id)->get();
+		}
+		else {
+			return Team::all();
+		}
     }
 
     /**
@@ -43,7 +50,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return $team;
+		return $team;
     }
     
     /**
@@ -71,5 +78,5 @@ class TeamController extends Controller
         $team->delete();
 
         return response()->json(null, 204);
-    }
+	}
 }
