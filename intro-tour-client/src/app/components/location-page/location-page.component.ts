@@ -75,7 +75,6 @@ export class LocationPageComponent implements OnInit {
 
   public showHidePopup(){
     this.locations.forEach(location => {
-      console.log(this.arePointsNear(location));
       if(this.arePointsNear(location)){
         this.showWindow(location);
       }else if(!this.arePointsNear(location)){
@@ -100,8 +99,7 @@ export class LocationPageComponent implements OnInit {
   public showWindow(location){
     this._questionService.getQuestion(location.question_id)
         .subscribe((question) => {
-          this.question = question[0]; 
-          console.log(this.question)
+          this.question = question[0];
           document.getElementById(`popup-${location.id}`).style.display = 'block';
         });
   }
@@ -123,7 +121,6 @@ export class LocationPageComponent implements OnInit {
           .subscribe((res: any) => {
             res[0].question_id = event.event.action.data.question_id;
             this.locations.push(res[0]);
-            console.log(this.locations);
           });
     });
   }
