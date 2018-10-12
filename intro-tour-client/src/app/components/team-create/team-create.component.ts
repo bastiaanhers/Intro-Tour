@@ -22,7 +22,8 @@ export class TeamCreateComponent implements OnInit {
   
   player: Player = {
     name: "",
-    tour_id: null
+	tour_id: null,
+	player_id: null
   }
 	team: Team = {
 		team_name: '',
@@ -89,6 +90,7 @@ export class TeamCreateComponent implements OnInit {
 
 	// Post call to create a new team
 	private createTeam() {
+		this.teamService.teamName(this.team.team_name);
 		this.http.post(this.apiUrl + 'teams', this.team)
 		.subscribe(
         (res:Team) => {
@@ -107,10 +109,12 @@ export class TeamCreateComponent implements OnInit {
 	private createUser(teamRes) {
 		this.teamId = teamRes.id;
 		this.user.team_id = this.teamId;
+		this.user.name = this.player.name;
 		this.http.post(this.apiUrl + 'participants', this.user)
 		.subscribe(
 			(res:Response) => {
 				this.updateTeam(res);
+				this.userName.userId(res);
 			},
 			err => {
 				console.error(err);
