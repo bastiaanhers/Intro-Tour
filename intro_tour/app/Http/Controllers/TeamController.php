@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Event\Events;
 use DB;
 
 class TeamController extends Controller
@@ -16,6 +17,9 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
+		event(new Events());
+
+
 		if ($request->tour) {
 			$id = $request->tour;
 			return Team::where('tour_id', $id)->get();
