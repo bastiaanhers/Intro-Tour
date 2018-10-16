@@ -70,6 +70,7 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 // locations
-Route::get('locations/{id}', 'LocationController@index');
+Route::get('locations', 'LocationController@index');
+Route::get('locations/{id}', 'LocationController@show');
 //questions
-Route::get('questions/{id}', 'QuestionController@index');
+Route::get('questions/{id}', 'QuestionController@show');
