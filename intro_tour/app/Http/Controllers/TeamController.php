@@ -38,7 +38,7 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Team  $team
+     * @param  $pin
      * @return \Illuminate\Http\Response
      */
     public function show($pin)
