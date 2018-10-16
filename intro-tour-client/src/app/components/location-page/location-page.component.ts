@@ -16,6 +16,7 @@ export class LocationPageComponent implements OnInit {
 	public totalPoints: number = 0;
 	public timeLimit: number;
 	public timeRemaining: number = 0;
+	private timer;
 
 	ky; kx; dy; dx; km;
 
@@ -145,12 +146,14 @@ export class LocationPageComponent implements OnInit {
 
 	//answer handling
 	public checkAnswer(id) {
+		this.stopTimer();
 		if (this.given_answer == undefined) {
 			alert('Je moet wel een antwoord kiezen');
 		} else if (this.given_answer == 1) {
 			this.hideWindow(id);
 			document.getElementById(`right-${id}`).style.display = 'block';
 		} else {
+			console.log(id)
 			this.hideWindow(id);
 			document.getElementById(`wrong-${id}`).style.display = 'block';
 		}
@@ -191,13 +194,16 @@ export class LocationPageComponent implements OnInit {
 		let timeEnd: number = timeNow + this.timeLimit;
 		this.timeRemaining = this.timeLimit;
 
-		let timer = setInterval(() => {
+		this.timer = setInterval(() => {
 			if (this.timeRemaining <= 0) {
-				clearInterval(timer);
+				clearInterval(this.timer);
 				this.checkAnswer(locationId);
 			}
 
 			return this.timeRemaining = timeEnd - Math.round((new Date()).getTime() / 1000);
 		}, 500);
+	}
+	private stopTimer() {
+		clearInterval(this.timer);
 	}
 }
