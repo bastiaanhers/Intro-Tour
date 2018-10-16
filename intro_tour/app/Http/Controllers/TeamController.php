@@ -41,9 +41,9 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show($pin)
     {
-        return $team;
+        return Team::where('team_pin', $pin)->get();
     }
     
     /**
