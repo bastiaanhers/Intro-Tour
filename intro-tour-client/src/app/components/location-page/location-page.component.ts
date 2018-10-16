@@ -151,6 +151,7 @@ export class LocationPageComponent implements OnInit {
 			this.hideWindow(id);
 			document.getElementById(`right-${id}`).style.display = 'block';
 		} else {
+      console.log(id)
 			this.hideWindow(id);
 			document.getElementById(`wrong-${id}`).style.display = 'block';
 		}
