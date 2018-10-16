@@ -3,9 +3,9 @@ import { EventService } from '../../services/event.service';
 import { QuestionService } from '../../services/question.service';
 import { LocationService } from '../../services/location.service';
 @Component({
-  selector: 'app-location-page',
-  templateUrl: './location-page.component.html',
-  styleUrls: ['./location-page.component.css']
+	selector: 'app-location-page',
+	templateUrl: './location-page.component.html',
+	styleUrls: ['./location-page.component.css']
 })
 export class LocationPageComponent implements OnInit {
   z: number;
@@ -14,6 +14,8 @@ export class LocationPageComponent implements OnInit {
   public question;
   public locations = [];
   public totalPoints: number = 0;
+  public timeLimit: number;
+	public timeRemaining: number = 0;
 
   ky; kx; dy; dx; km;
 
@@ -182,4 +184,18 @@ export class LocationPageComponent implements OnInit {
       }
     });
   }
+  private startTimer(locationId) {
+		let timeNow: number = Math.round((new Date()).getTime() / 1000);
+		let timeEnd: number = timeNow + this.timeLimit;
+		this.timeRemaining = this.timeLimit;
+
+		let timer = setInterval(() => {
+			if (this.timeRemaining <= 0) {
+				clearInterval(timer);
+				this.checkAnswer(locationId);
+			}
+
+			return this.timeRemaining = timeEnd - Math.round((new Date()).getTime() / 1000);
+		}, 500);
+	}
 }
