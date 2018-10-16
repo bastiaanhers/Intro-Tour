@@ -23,26 +23,26 @@ export class LeaderboardComponent implements OnInit {
 	public tableData: any = SCORES;
 	private tourID: number = 1;
 
-	private getTeamsByTourID() {
-		this.http.get(this.apiUrl + 'teams?tour=' + this.tourID).subscribe(
-			(res: Response) => {
-				this.sortArrayByScore(res);
-			},
-			err => {
-				document.getElementById('tour_id_input').classList.add('error');
-				this.messagesServices.setMessage(MessageTypes.Error, 'Fout', 'Tour ID bestaat niet');
-				console.error(err);
-			}
-		);
-	}
+	// private getTeamsByTourID() {
+	// 	this.http.get(this.apiUrl + 'teams?tour=' + this.tourID).subscribe(
+	// 		(res: Response) => {
+	// 			this.sortArrayByScore(res);
+	// 		},
+	// 		err => {
+	// 			document.getElementById('tour_id_input').classList.add('error');
+	// 			this.messagesServices.setMessage(MessageTypes.Error, 'Fout', 'Tour ID bestaat niet');
+	// 			console.error(err);
+	// 		}
+	// 	);
+	// }
 
-	private sortArrayByScore(teams) {
-		teams.sort((a, b) => (a.team_score < b.team_score) ? 1 : ((b.team_score < a.team_score) ? -1 : 0));
-		this.tableData = teams;
-	}
+	// private sortArrayByScore(teams) {
+	// 	teams.sort((a, b) => (a.team_score < b.team_score) ? 1 : ((b.team_score < a.team_score) ? -1 : 0));
+	// 	this.tableData = teams;
+	// }
 
 	ngOnInit() {
-		this.getTeamsByTourID();
+		// this.getTeamsByTourID();
 	}
 
 }
