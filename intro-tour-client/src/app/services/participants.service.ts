@@ -13,4 +13,8 @@ export class ParticipantsService {
   getUserById(id): Observable<any>{
     return this.http.get(this.apiUrl + 'participants/' + id);
   }
+
+  createUser(user): Observable<any>{
+    return this.http.post(this.apiUrl + 'participants', user);
+  }
 }

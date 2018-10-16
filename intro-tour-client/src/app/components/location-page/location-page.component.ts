@@ -57,7 +57,7 @@ export class LocationPageComponent implements OnInit {
     ];
   }
 
-
+  //de gebruiker zijn locatie ophalen en laten zien op de kaart
   private trackMe() {
     if (navigator.geolocation) {
       this.isTracking = true;
@@ -74,10 +74,9 @@ export class LocationPageComponent implements OnInit {
   public showTrackingPosition(position) {
     this.curLocation.x = position.coords.latitude;
     this.curLocation.y = position.coords.longitude;
-
-    //this.showHidePopup()
   }
 
+  //de popup van het event laten zien bij het juiste event
   public showHidePopup() {
     this.locations.forEach(location => {
       if (this.arePointsNear(location)) {
@@ -90,6 +89,7 @@ export class LocationPageComponent implements OnInit {
     });
   }
 
+  //check of je in de radius van de vraag bent (d.m.v de stelling van pithagoras)
   public arePointsNear(location) {
     this.km = location.radius.data / 1000;
 
@@ -113,15 +113,19 @@ export class LocationPageComponent implements OnInit {
   public hideWindow(id) {
     document.getElementById(`popup-${id}`).style.display = 'none';
   }
+
+  //alle events ophalen
   public getEvents() {
     this._eventService.getEvents()
       .subscribe((res: any) => {
         this.getLocation(res);
       });
   }
+  //vraag bij een event ophalen
   public getQuestion(id) {
-    this._questionService.getQuestion(id).subscribe((question) => { this.question = question[0]; console.log(this.question) });
+    this._questionService.getQuestion(id).subscribe(question => this.question = question[0]);
   }
+  //de locatie van elk event krijgen
   public getLocation(events) {
     events.forEach(event => {
       this._locationService.getLocation(event.event.trigger.data.location_id)
@@ -135,6 +139,7 @@ export class LocationPageComponent implements OnInit {
     });
   }
 
+  //answer handling
   public checkAnswer(id) {
     if (this.given_answer == undefined) {
       alert('Je moet wel een antwoord kiezen');

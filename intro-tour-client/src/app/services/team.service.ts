@@ -29,4 +29,12 @@ export class TeamService {
   getTeamByTeamPin(pin): Observable<any>{
     return this.http.get(this.apiUrl + 'teams/' + pin);
   }
+
+  createTeam(team): Observable<any>{
+    return this.http.post(this.apiUrl + 'teams', team);
+  }
+
+  updateTeam(id, updateData): Observable<any>{
+    return this.http.put(this.apiUrl + 'teams/' + id, updateData);
+  }
 }

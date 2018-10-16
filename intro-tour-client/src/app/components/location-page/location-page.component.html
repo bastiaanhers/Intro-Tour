@@ -1,9 +1,12 @@
 <agm-map [latitude]="curLocation.x" [longitude]="curLocation.y" [zoom]="z">
     <agm-marker [latitude]="curLocation.x" [longitude]="curLocation.y" [iconUrl]="icons[0]"></agm-marker>
 
-    <agm-marker *ngFor="let location of locations" [latitude]="location.latitude" [longitude]="location.longitude"
-        [iconUrl]="icons[location.map_icon]" id="{{location.id}}">
-        <!-- <agm-circle [latitude]="location.latitude" [longitude]="location.longitude" [radius]="location.radius.data"></agm-circle> -->
+    <agm-marker 
+        *ngFor="let location of locations" 
+        [latitude]="location.latitude" 
+        [longitude]="location.longitude"
+        [iconUrl]="icons[location.map_icon]" 
+        id="{{location.id}}">
 
         <agm-info-window *ngIf="arePointsNear(location) && location.map_icon == 1">
             <p><span class="info-window-title">Je bent in de buurt van de vraag </span> <br>klik op de knop om het event te openen <br><b>voor {{location.points}} punten</b></p>
@@ -18,6 +21,7 @@
     </agm-marker>
 </agm-map>
 
+<!-- question windows -->
 <div *ngFor="let location of locations">
     <div id="popup-{{location.id}}" class="question-pop-up">
         <div class="question-popup-content" *ngIf="question != undifined">
@@ -30,6 +34,7 @@
         </div>
     </div>
 
+    <!-- feedback on given answer -->
     <div class="feedback-window right" id="right-{{location.id}}">
         <div class="bar">
             <p class="feedback-title">Goed Gedaan!</p>
