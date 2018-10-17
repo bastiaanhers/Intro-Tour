@@ -1,0 +1,26 @@
+.menu{
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: .5px 0px 5px .1px rgba(112,112,112,.5);
+    z-index: 100;
+
+    display: flex;
+}
+.menu-item{
+    width: 25%;
+    height: 50px;
+}
+.menu-text{
+    display: table;
+    margin: 0 auto;
+    line-height: 50px;
+    font-size: 20px;
+    color: rgb(40, 40, 40);
+}
+.selected p, .selected{
+    background-color: rgb(247, 247, 247);
+    color: rgb(0, 183, 239);
+}
