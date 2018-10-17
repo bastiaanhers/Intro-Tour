@@ -15,11 +15,11 @@ class EventsSeeder extends Seeder
         ([
         [
         'trigger' => '{"type": "location", "data": {"location_id": 1}}',
-        'action' => '{"type": "question", "data": {"question_id": 1}}'
+        'action' => '{"type": "question", "data": {"question_id": 1, "timeLimit": 60}}'
         ],
         [
         'trigger' => '{"type": "location", "data": {"location_id": 2}}',
-        'action' => '{"type": "question", "data": {"question_id": 2}}'
+        'action' => '{"type": "question", "data": {"question_id": 2, "timeLimit": 30}}'
         ]
         ]);
 
