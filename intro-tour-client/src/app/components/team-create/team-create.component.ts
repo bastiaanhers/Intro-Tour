@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 import { UserNameService } from '../../services/user-name.service';
 import { TeamService } from '../../services/team.service';
 import { MessageTypes } from '../../message-types';
@@ -10,7 +11,7 @@ import { ParticipantsService } from '../../services/participants.service';
 import { Player } from '../../player';
 import { Team } from '../../team';
 import { User } from '../../user';
- 
+
 import * as $ from 'jquery';
 
 @Component({
@@ -43,31 +44,31 @@ export class TeamCreateComponent implements OnInit {
 	}
 	public user: User = {
 		name: '',
-    	role: '',
+    role: '',
 		team_id: null
 	}
 	private teamId: number;
 
-	private apiUrl: string = 'http://intro-tour.local/api/';
-	private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
-	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');	};
+	private apiUrl: string = environment.API_URL;
+	private addLoader() { $('.ui.loader').parent().addClass(['active', 'dimmer']) };
+	private removeLodaer() { $('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home'); };
 
 	private errorHandler() {
-    if(this.team.team_name == "" || this.team.tour_id == null){
-      //document.getElementById('error_message').classList.remove('hidden');
-      if(this.team.team_name == ""){
-		document.getElementById('name_input').classList.add('error');
-		this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TEAM NAAM is verplicht');
-      }else{
-		document.getElementById('name_input').classList.remove('error');
-      }
-      if(this.team.tour_id == null){
-		document.getElementById('tour_id_input').classList.add('error');
-		this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TOUR ID is verplicht');
-      }else{
-        document.getElementById('tour_id_input').classList.remove('error');
-      }
-    }else{
+		if (this.team.team_name == "" || this.team.tour_id == null) {
+			//document.getElementById('error_message').classList.remove('hidden');
+			if (this.team.team_name == "") {
+				document.getElementById('name_input').classList.add('error');
+				this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TEAM NAAM is verplicht');
+			} else {
+				document.getElementById('name_input').classList.remove('error');
+			}
+			if (this.team.tour_id == null) {
+				document.getElementById('tour_id_input').classList.add('error');
+				this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TOUR ID is verplicht');
+			} else {
+				document.getElementById('tour_id_input').classList.remove('error');
+			}
+		} else {
 			this.addLoader();
 		}
 	}
@@ -153,7 +154,7 @@ export class TeamCreateComponent implements OnInit {
 		this.checkTourId();
 		this.errorHandler();
 	}
-	
+
 	private sendTeamInfoToNextPage() {
 		this.teamService.teamName(this.team.team_name);
 		this.teamService.teamPin(this.team.team_pin);
@@ -161,9 +162,9 @@ export class TeamCreateComponent implements OnInit {
 
 	ngOnInit() {
 		this.userName.currentName.subscribe(name => this.player.name = name);
-		if(this.player.name == 'John Doe' || this.player.name == undefined){
+		if (this.player.name == 'John Doe' || this.player.name == undefined) {
 			this.router.navigateByUrl('/login');
-		}else{
+		} else {
 			console.log(this.player);
 		}
 	}

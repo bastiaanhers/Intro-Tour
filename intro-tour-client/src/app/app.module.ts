@@ -6,7 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 
 import { UserNameService } from './services/user-name.service';
+import { ScoreService } from './services/score.service';
+import { SocketsService } from './services/sockets.service';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -39,6 +42,7 @@ const appRoutes: Routes = [
 		PointReplacerPipe
 	],
 	imports: [
+		AppRoutingModule,
 		BrowserModule,
 		FormsModule,
 		HttpClientModule,
@@ -50,7 +54,11 @@ const appRoutes: Routes = [
 			apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc'
 		})
 	],
-	providers: [UserNameService],
+	providers: [
+		UserNameService,
+		ScoreService,
+		SocketsService
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -70,8 +70,9 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 Route::get('events/{id}', 'EventController@show');
-// locations
+/* locations */
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
-//questions
+
+/* questions */
 Route::get('questions/{id}', 'QuestionController@show');
