@@ -142,11 +142,15 @@ export class LocationPageComponent implements OnInit {
 					if(this.localstorageService.getItem('team') != null){
 						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
 
-						if(questions_answerd_team.includes(event.event.action.data.question_id)){
-							res[0].map_icon = 2;
+						if(questions_answerd_team != undefined){
+							if(questions_answerd_team.includes(event.event.action.data.question_id)){
+								res[0].map_icon = 2;
+							}else{
+								res[0].map_icon = 1;
+							};
 						}else{
 							res[0].map_icon = 1;
-						};
+						}
 					}else{
 						res[0].map_icon = 1;
 					}
@@ -212,7 +216,7 @@ export class LocationPageComponent implements OnInit {
 	public tryAgain(location) {
 		this.locations.forEach((array_location, index) => {
 			if (array_location.id == location.id) {
-				this.locations[index].points = this.locations[index].points / this.locations[index].devider;
+				this.locations[index].points = Math.round((this.locations[index].points / this.locations[index].devider));
 			}
 		});
 		document.getElementById(`wrong-${location.id}`).style.display = 'none';
