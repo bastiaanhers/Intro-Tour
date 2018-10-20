@@ -73,5 +73,6 @@ Route::get('events/{id}', 'EventController@show');
 // locations
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
+Route::put('locations/{id}', 'LocationController@update');
 //questions
 Route::get('questions/{id}', 'QuestionController@show');
