@@ -1,20 +1,31 @@
-<agm-map [latitude]="curLocation.x" [longitude]="curLocation.y" [zoom]="z">
+<agm-map [latitude]="curLocation.x" [longitude]="curLocation.y" [zoom]="z" [streetViewControl]="false" [zoomControl]="false">
 	<agm-marker [latitude]="curLocation.x" [longitude]="curLocation.y" [iconUrl]="icons[0]"></agm-marker>
 	<agm-marker *ngFor="let location of locations" [latitude]="location.latitude" [longitude]="location.longitude"
 	 [iconUrl]="icons[location.map_icon]" id="{{location.id}}">
 
 		<agm-info-window *ngIf="arePointsNear(location) && location.map_icon == 1">
-			<p><span class="info-window-title">Je bent in de buurt van de vraag </span> <br>klik op de knop om het event te
-				openen <br><b>voor {{location.points}} punten</b></p>
+			<p><span class="info-window-title">{{location.name}}</span>
+				<br><b>{{location.description}}</b><br>
+				<br>Je bent in de buurt van de vraag 
+				<br>klik op de knop om het event te openen 
+				<br>voor <b>{{location.points}}</b> punten
+			</p>
 			<button class="small green ui button" (click)="showWindow(location)">OPEN</button>
 		</agm-info-window>
 		<agm-info-window *ngIf="!arePointsNear(location) && location.map_icon == 1">
-			<p><span class="info-window-title">Je bent niet in de buurt</span> <br>kom hier heen om het event te doen <br><b>voor
-					{{location.points}} punten</b></p>
+			<p><span class="info-window-title">{{location.name}}</span> 
+				<br><b>{{location.description}}</b><br>
+				<br>Je bent niet in de buurt
+				<br>kom hier heen om het event te doen 
+				<br>voor <b>{{location.points}}</b> punten
+			</p>
 		</agm-info-window>
 		<agm-info-window *ngIf="location.map_icon == 2">
-			<p><span class="info-window-title">Je hebt dit event al gedaan</span> <br>Je hebt voor dit event <b>{{location.points}}</b>
-				punten gekregen</p>
+			<p><span class="info-window-title">{{location.name}}</span>
+				<br><b>{{location.description}}</b><br>
+				<br>Je hebt dit event al gedaan
+				<br>Je hebt voor dit event <b>{{location.points}}</b> punten gekregen
+			</p>
 		</agm-info-window>
 	</agm-marker>
 </agm-map>

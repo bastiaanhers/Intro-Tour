@@ -141,6 +141,10 @@ export class LocationPageComponent implements OnInit {
 
 					if(this.localstorageService.getItem('team') != null){
 						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
+						this.answerd = questions_answerd_team;
+
+						console.log(questions_answerd_team);
+						console.log(this.answerd);
 
 						if(questions_answerd_team != undefined){
 							if(questions_answerd_team.includes(event.event.action.data.question_id)){
@@ -187,7 +191,7 @@ export class LocationPageComponent implements OnInit {
 	public updateTeam(id) {
 		let team = this.localstorageService.getItem('team');
 
-		//update team score
+		//update team score and the questions that are answerd
 		this.locations.forEach((location, index) => {
 			if (location.id == id) {
 				team.team_score = team.team_score += this.locations[index].points;
