@@ -143,9 +143,6 @@ export class LocationPageComponent implements OnInit {
 						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
 						this.answerd = questions_answerd_team;
 
-						console.log(questions_answerd_team);
-						console.log(this.answerd);
-
 						if(questions_answerd_team != undefined){
 							if(questions_answerd_team.includes(event.event.action.data.question_id)){
 								res[0].map_icon = 2;

@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
 	public id: number;
 	public team = {
 		team_name: '',
-		team_pin: ''
+		team_pin: '',
+		questions_answerd: []
 	};
 	public usr = {
 		name: ''
@@ -57,6 +58,7 @@ export class HomeComponent implements OnInit {
 				this.teamService.getTeamByTeamPin(this.teamPin)
 					.subscribe((res) => {
 						//team opslaan in localstorage
+						res[0].questions_answerd = [];
 						this.localstorageService.setItem('team', res[0]);
 						this.team = this.localstorageService.getItem('team');
 						this.teamService.teamName(res[0].team_name);
@@ -66,13 +68,8 @@ export class HomeComponent implements OnInit {
 			//als de user al is opgeslagen in de localstorage
 			this.usr = this.localstorageService.getItem('user');
 			this.team = this.localstorageService.getItem('team');
+			this.team.questions_answerd = [];
 		}
 
-	}
-
-
-	getUsr() {
-		console.log(this.usr);
-		console.log(this.team);
 	}
 }
