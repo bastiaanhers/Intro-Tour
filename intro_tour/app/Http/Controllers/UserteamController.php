@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Tour;
 use Illuminate\Http\Request;
+use App\Participant;
 
-class TourController extends Controller
+class UserteamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,17 @@ class TourController extends Controller
      */
     public function index()
     {
-        return Tour::all();
+        return 'This Works';
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -25,46 +35,51 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
-        $tour = Tour::create($request->all());
-
-        return response()->json($tour, 201);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tour  $tour
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($pin)
     {
-        return Tour::where('tour_code', $id)->get();
+        return Participant::where('team_id', $pin)->get();
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tour  $tour
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(Request $request, $id)
     {
-        $tour->update($request->all());
-
-        return response()->json($tour, 200);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tour  $tour
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Tour $tour)
+    public function destroy($id)
     {
-        $tour->delete();
-
-        return response()->json(null, 204);
+        //
     }
 }

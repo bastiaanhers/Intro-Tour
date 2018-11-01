@@ -72,4 +72,10 @@ export class HomeComponent implements OnInit {
 		}
 
 	}
+
+	getUsr(){
+		console.log(this.team);
+		console.log(this.usr);
+
+	}
 }
