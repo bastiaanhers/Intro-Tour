@@ -28,14 +28,14 @@ If there was an error message or code copy it in here.
 
 **Desktop (please complete the following information):**  
  - OS: [e.g. Windows 10]  
- - Browser [e.g. chrome, safari]  
- - Browser version [e.g. 70]
+ - Browser: [e.g. chrome, safari]  
+ - Browser version: [e.g. 70]
 
 **Smartphone (please complete the following information):**  
  - Device: [e.g. iPhone 6]  
  - OS: [e.g. iOS 8.1]  
- - Browser [e.g. stock browser, safari]  
- - Browser version [e.g. 70] 
+ - Browser: [e.g. stock browser, safari]  
+ - Browser version: [e.g. 70] 
 
 **Additional context**  
 Add any other context about the problem here.
