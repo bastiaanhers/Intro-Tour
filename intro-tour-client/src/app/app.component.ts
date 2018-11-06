@@ -23,7 +23,7 @@ export class AppComponent {
     setTimeout(() => {
       if(this.localstorageService.getItem('team') == null){
         this.teamService.teamName('INTRO TOUR');
-        this.teamService.currentTeamName.subscribe((name) => {this.teamName = name; console.log(name)});
+        this.teamService.currentTeamName.subscribe(name => this.teamName = name);
       }else{
         this.teamName = this.localstorageService.getItem('team').team_name;
       }      

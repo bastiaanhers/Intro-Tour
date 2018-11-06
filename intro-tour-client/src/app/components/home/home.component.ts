@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 	) { }
 
 	public teamPin: string;
+	public totalMembers: number = 0;
 	public name: string;
 	public id: number;
 	public team = {
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
 	public usr = {
 		name: ''
 	};
+	public members: Array<any>;
 
 	ngOnInit() {
 		// Subscribe to team name from the team service
@@ -41,7 +43,11 @@ export class HomeComponent implements OnInit {
 
 		if (localStorage.getItem('user') == null) {
 			this.userName.currentId.subscribe(id => this.id = id);
-			this.teamService.currentTeamPin.subscribe(teamPin => this.teamPin = teamPin);
+			this.teamService.currentTeamPin
+				.subscribe((teamPin) => {
+					this.localstorageService.setItem('teamPin', teamPin);
+					this.teamPin = this.localstorageService.getItem('teamPin');
+				});
 
 			//check if user is set
 			if (this.id == 0) {
@@ -52,8 +58,8 @@ export class HomeComponent implements OnInit {
 				this.participantsService.getUserById(this.id)
 					.subscribe((res) => {
 						//user opslaan in de loclastorage
-						this.localstorageService.setItem('user', res);
-						this.usr = this.localstorageService.getItem('user');
+						this.localstorageService.setItem('user', res[0]);
+						this.usr = this.localstorageService.getItem('user')
 					});
 				this.teamService.getTeamByTeamPin(this.teamPin)
 					.subscribe((res) => {
@@ -63,11 +69,29 @@ export class HomeComponent implements OnInit {
 						this.team = this.localstorageService.getItem('team');
 						this.teamService.teamName(res[0].team_name);
 					});
+				this.participantsService.getUsersByPin(this.teamPin)
+					.subscribe((res) => {
+						this.localstorageService.setItem('members', res);
+						this.members = this.localstorageService.getItem('members');
+						this.totalMembers = this.members.length;
+					});
 			}
 		} else {
 			//als de user al is opgeslagen in de localstorage
+			this.teamPin = this.localstorageService.getItem('teamPin');
 			this.usr = this.localstorageService.getItem('user');
 			this.team = this.localstorageService.getItem('team');
+
+
+			// temporary fix
+			this.participantsService.getUsersByPin(this.teamPin)
+			.subscribe((res) => {
+				this.localstorageService.setItem('members', res);
+				this.members = this.localstorageService.getItem('members');
+				this.totalMembers = this.members.length;
+			});
+			//end temporary fix
+
 			this.team.questions_answerd = [];
 		}
 
@@ -76,6 +100,5 @@ export class HomeComponent implements OnInit {
 	getUsr(){
 		console.log(this.team);
 		console.log(this.usr);
-
 	}
 }

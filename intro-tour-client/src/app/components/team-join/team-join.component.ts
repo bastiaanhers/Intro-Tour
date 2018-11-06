@@ -31,10 +31,10 @@ export class TeamJoinComponent implements OnInit {
   private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
   private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');};
   
-  private errorHandler() {
+  private errorHandler(message: string) {
     if(this.team.tour_id == null){
 		    document.getElementById('tour_id_input').classList.add('error');
-		    this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TOUR ID is verplicht');
+		    this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', message);
     }else{
       document.getElementById('tour_id_input').classList.remove('error');
 		}
@@ -63,8 +63,6 @@ export class TeamJoinComponent implements OnInit {
     this.userName.currentName.subscribe(name => this.player.name = name);
     if (this.player.name == 'John Doe' || this.player.name == undefined) {
       this.router.navigateByUrl('/login');
-    } else {
-      console.log(this.player);
     }
   }
 
@@ -86,7 +84,7 @@ export class TeamJoinComponent implements OnInit {
         this.addLoader();
         this.joinTeamCreateUser(res);
       } else {
-        this.errorHandler();
+        this.errorHandler('Het Team ID bestaat niet.');
       }
     });
   }

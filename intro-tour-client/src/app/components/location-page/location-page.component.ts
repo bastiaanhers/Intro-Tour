@@ -165,7 +165,7 @@ export class LocationPageComponent implements OnInit {
 					this.locations.push(res[0]);
 
 					console.log(this.locations);
-
+				
 				});
 		});
 	}
@@ -179,7 +179,6 @@ export class LocationPageComponent implements OnInit {
 			this.hideWindow(id);
 			document.getElementById(`right-${id}`).style.display = 'block';
 		} else {
-			console.log(id)
 			this.hideWindow(id);
 			document.getElementById(`wrong-${id}`).style.display = 'block';
 		}
@@ -206,7 +205,7 @@ export class LocationPageComponent implements OnInit {
 
 				this.teamService.updateTeam(team.id, { questions_answerd: this.answerd })
 					.subscribe((res: Response) => { },
-						(err) => console.log(err));
+						(err) => console.error(err));
 			}
 		});
 	}
@@ -260,5 +259,9 @@ export class LocationPageComponent implements OnInit {
 	}
 	private stopTimer() {
 		clearInterval(this.timer);
+	}
+
+	public giveHint(id){
+		console.log(`this is a hint for q ${id}`);
 	}
 }

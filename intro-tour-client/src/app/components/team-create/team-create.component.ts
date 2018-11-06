@@ -112,7 +112,6 @@ export class TeamCreateComponent implements OnInit {
 
 	// Post call to create new user
 	private createUser(teamRes) {
-		console.log(teamRes);
 		this.teamId = teamRes.id;
 		this.user.team_id = teamRes.team_pin;
 		this.user.name = this.player.name;
@@ -134,7 +133,6 @@ export class TeamCreateComponent implements OnInit {
 	// Updates team to add the id of the team leader
 	private updateTeam(userRes) {
 		this.team.team_leader = userRes.id;
-		console.log(this.team);
 		//this.http.put(this.apiUrl + 'teams/' + this.teamId, {team_leader: this.team.team_leader}) old
 		this.teamService.updateTeam(this.teamId, {team_leader: this.team.team_leader})
 		.subscribe(
@@ -166,8 +164,6 @@ export class TeamCreateComponent implements OnInit {
 		this.userName.currentName.subscribe(name => this.player.name = name);
 		if(this.player.name == 'John Doe' || this.player.name == undefined){
 			this.router.navigateByUrl('/login');
-		}else{
-			console.log(this.player);
 		}
 	}
 }

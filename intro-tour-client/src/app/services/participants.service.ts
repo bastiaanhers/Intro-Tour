@@ -16,7 +16,7 @@ export class ParticipantsService {
 	}
 
 	getUsersByPin(pin): Observable<any> {
-		return this.http.get(this.apiUrl + 'participants/' + pin);
+		return this.http.get(this.apiUrl + 'teamparticipants/' + pin);
 	}
 
 	createUser(user): Observable<any> {
