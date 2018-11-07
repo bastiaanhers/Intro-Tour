@@ -15,4 +15,7 @@ export class LocationService {
 	public getLocation(id): Observable<any> {
 		return this.http.get(this.apiUrl + 'locations/' + id);
 	}
+	public updateLocation(id: number, updateData): Observable<any>{
+		return this.http.put(this.apiUrl + 'locations/' + id, updateData);
+	}
 }
