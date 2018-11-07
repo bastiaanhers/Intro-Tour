@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { QuestionService } from '../../services/question.service';
 import { LocationService } from '../../services/location.service';
+import { MediaService } from '../../services/media.service';
+import { HttpClientModule } from "@angular/common/http"
 @Component({
   selector: 'app-location-page',
   templateUrl: './location-page.component.html',
@@ -13,6 +15,9 @@ export class LocationPageComponent implements OnInit {
   private given_answer;
   public question;
   public locations = [];
+  //variables for file system
+  public mediaFile;
+  public selectedFile;
 
   ky;kx;dy;dx;km;
 
@@ -32,7 +37,7 @@ export class LocationPageComponent implements OnInit {
 
   isTracking = false;
 
-  constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService) { 
+  constructor(private _httpModule: HttpClientModule, private _mediaService: MediaService ,private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService) { 
     this.getEvents();
   }
 
@@ -52,6 +57,21 @@ export class LocationPageComponent implements OnInit {
     ];
   }
 
+  //**functions for file uploading to api */
+  onFileSelected(fileEvent: FileList){
+    this.selectedFile = fileEvent.item(0);
+  }
+
+  uploadSelectedFile(){
+    // let fd = new FormData();
+    //   fd.append('help', this.selectedFile, this.selectedFile.name);
+    // let fd = {
+    //   file: this.selectedFile,
+    //   fileName: this.selectedFile.name
+    // };
+    this._mediaService.uploadMedia(this.selectedFile);
+  }
+  //** end of file uploading */
 
   private trackMe(){  
     if(navigator.geolocation){
@@ -117,6 +137,10 @@ export class LocationPageComponent implements OnInit {
   }
   public getLocation(events){
     events.forEach(event => {
+
+      //get media file and save in assets
+      this.mediaFile = this._mediaService.getMedia(event.event_id);
+
       this._locationService.getLocation(event.event.trigger.data.location_id)
           .subscribe((res: any) => {
             res[0].question_id = event.event.action.data.question_id;

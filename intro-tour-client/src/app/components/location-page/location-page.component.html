@@ -17,7 +17,9 @@
             <form (ngSubmit)="checkAnswer(location.id)">
                 <p class="q-title" >{{question.question}}</p>
                 <p class="q-options" *ngFor="let answer of question.answers"><input type="radio" name="answer" (click)="setValue(answer.right_answer)"> {{answer.answer}}.</p>
-                <button type="submit" class="big one ui green button btn">Controleer</button>                
+                <button type="submit" class="big one ui green button btn">Controleer</button>        
+                <input type="file" (change)="onFileSelected($event.target.files)">
+                <button type="button" (click)="uploadSelectedFile()">submit</button>       
             </form>
         </div>
     <div>   

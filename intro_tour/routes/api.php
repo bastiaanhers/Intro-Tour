@@ -69,8 +69,14 @@ Route::delete('teams/{team}', 'TeamController@delete');
 
 /* Events */
 Route::get('events', 'EventController@index');
-// locations
+
+/* locations */
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
-//questions
+
+/* questions */
 Route::get('questions/{id}', 'QuestionController@show');
+
+/*File Upload*/
+Route::get('mediafile/{id}', 'MediaFileController@show');
+Route::post('mediafileupload', 'MediaFileController@store');
