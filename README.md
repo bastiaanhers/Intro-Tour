@@ -18,6 +18,7 @@
 </VirtualHost>
 ```
 (``{project root}`` moet je wel zelf invullen)
+
 3. Start apache opnieuw op
 
 ### Laravel Configureren
