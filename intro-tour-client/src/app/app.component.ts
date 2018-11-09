@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TeamService } from 'src/app/services/team.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 import * as $ from 'jquery';
 
 
@@ -9,9 +11,22 @@ import * as $ from 'jquery';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  teamName;
+  teamPin;
 
-  ngOnInit(){
-    
+  constructor (private teamService: TeamService, private localstorageService: LocalstorageService) {
+
   }
 
+  ngOnInit(){
+    //teamname in header
+    setTimeout(() => {
+      if(this.localstorageService.getItem('team') == null){
+        this.teamService.teamName('INTRO TOUR');
+        this.teamService.currentTeamName.subscribe(name => this.teamName = name);
+      }else{
+        this.teamName = this.localstorageService.getItem('team').team_name;
+      }      
+    }, 100);
+  }
 }

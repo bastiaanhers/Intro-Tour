@@ -41,10 +41,14 @@ use App\Question;
 
 /* Participants routes */
 Route::get('participants', 'ParticipantController@index');
-Route::get('participants/{participant}', 'ParticipantController@show');
+Route::get('participants/{id}', 'ParticipantController@show');
 Route::post('participants', 'ParticipantController@store');
 Route::put('participants/{participant}', 'ParticipantController@update');
 Route::delete('participants/{participant}', 'ParticipantController@delete');
+/* ParticipantsTeam */
+
+Route::get('teamparticipants', 'UserteamController@index');
+Route::get('teamparticipants/{pin}', 'UserteamController@show');
 
 /* Admins */
 Route::get('admins', 'AdminController@index');
@@ -62,7 +66,7 @@ Route::delete('tours/{tour}', 'TourController@delete');
 
 /* Teams */
 Route::get('teams', 'TeamController@index');
-Route::get('teams/{team}', 'TeamController@show');
+Route::get('teams/{pin}', 'TeamController@show');
 Route::post('teams', 'TeamController@store');
 Route::put('teams/{team}', 'TeamController@update');
 Route::delete('teams/{team}', 'TeamController@delete');
@@ -70,13 +74,13 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 
-/* locations */
+Route::get('events/{id}', 'EventController@show');
+// locations
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
-
-/* questions */
+Route::put('locations/{id}', 'LocationController@update');
+//questions
 Route::get('questions/{id}', 'QuestionController@show');
-
 /*File Upload*/
 Route::get('mediafile/{id}', 'MediaFileController@show');
 Route::post('mediafileupload', 'MediaFileController@store');

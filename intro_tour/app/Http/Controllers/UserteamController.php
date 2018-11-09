@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Event;
-use App\event_tour;
-use Response;
-use DB;
+use App\Participant;
 
-class EventController extends Controller
+class UserteamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +14,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        // $events = DB::table('event_tour')
-        // ->join('tours', 'tour_id', '=', 'tours.id')
-        // ->join('events', 'event_id', '=', 'events.id')
-        // ->get();
-
-        $events = event_tour::with('event')
-        ->with('tour')
-        ->get();
-
-        return $events;
+        return 'This Works';
     }
 
     /**
@@ -53,13 +41,12 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($pin)
     {
-        $events = event_tour::with('event')->with('tour')->where('tour_id', '=', $id)->get();
-        return $events;
+        return Participant::where('team_id', $pin)->get();
     }
 
     /**
