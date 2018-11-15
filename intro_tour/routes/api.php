@@ -46,7 +46,6 @@ Route::post('participants', 'ParticipantController@store');
 Route::put('participants/{participant}', 'ParticipantController@update');
 Route::delete('participants/{participant}', 'ParticipantController@delete');
 /* ParticipantsTeam */
-
 Route::get('teamparticipants', 'UserteamController@index');
 Route::get('teamparticipants/{pin}', 'UserteamController@show');
 
@@ -74,9 +73,11 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 Route::get('events/{id}', 'EventController@show');
-// locations
+
+/* locations */
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
 Route::put('locations/{id}', 'LocationController@update');
-//questions
+
+/* questions */
 Route::get('questions/{id}', 'QuestionController@show');
