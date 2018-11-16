@@ -39,9 +39,7 @@
 				<p class="q-points">{{location.points}} punten</p>
 				<p class="q-options" *ngFor="let answer of question.answers"><input type="radio" name="answer" (click)="setValue(answer.right_answer)">
 					{{answer.answer}}.</p>
-				<button type="submit" class="big one ui green button btn">Controleer</button>
-				<input type="file" (change)="onFileSelected($event.target.files)">
-                <button type="button" (click)="uploadSelectedFile()">submit</button>  
+				<button type="submit" class="big one ui green button btn">Controleer</button> 
 			</form>
 			<button class="normal one ui blue button" (click)='giveHint(location.id)' style="margin-left: 20px; margin-top: 50px;">Koop een hint voor ... punten</button>
 		</div>

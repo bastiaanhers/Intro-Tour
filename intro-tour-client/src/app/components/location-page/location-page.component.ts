@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { QuestionService } from '../../services/question.service';
 import { LocationService } from '../../services/location.service';
-import { MediaService } from '../../services/media.service';
 import { HttpClientModule } from "@angular/common/http"
 import { TeamService } from '../../services/team.service';
 import { LocalstorageService } from '../../services/localstorage.service'
@@ -46,7 +45,7 @@ export class LocationPageComponent implements OnInit {
 
 	isTracking = false;
 
-	constructor(private _mediaService: MediaService ,private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService) {
+	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService) {
 		this.getEvents();
 	}
 
@@ -69,22 +68,7 @@ export class LocationPageComponent implements OnInit {
 			}
 		];
 	}
-  //**functions for file uploading to api */
-  onFileSelected(fileEvent: FileList){
-    this.selectedFile = fileEvent.item(0);
-  }
-
-  uploadSelectedFile(){
-    // let fd = new FormData();
-    //   fd.append('help', this.selectedFile, this.selectedFile.name);
-    // let fd = {
-    //   file: this.selectedFile,
-    //   fileName: this.selectedFile.name
-    // };
-    this._mediaService.uploadMedia(this.selectedFile);
-  }
-  //** end of file uploading */
-
+  
 	//de gebruiker zijn locatie ophalen en laten zien op de kaart
 	private trackMe() {
 		if (navigator.geolocation) {
@@ -157,8 +141,9 @@ export class LocationPageComponent implements OnInit {
 	//de locatie van elk event krijgen
 	public getLocation(events) {
 		events.forEach(event => {
-      //get media file and save in assets
-      this.mediaFile = this._mediaService.getMedia(event.event_id);
+	  //**get media file and save in assets*/
+	  //this.mediaFile = this._mediaService.getMedia(event.event.event_id);
+	  //** */
 			this._locationService.getLocation(event.event.trigger.data.location_id)
 				.subscribe((res: any) => {
 

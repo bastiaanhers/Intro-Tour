@@ -38,8 +38,7 @@ class MediaFileController extends Controller
     {
         //Storage::disk('local')->put($request->fd[1], $request->fd[0]);
         //Storage::put($request[1], $request[0]);
-
-        $file = $request->file();
+        $file = $request['key1'];
         return $file;
     }
 

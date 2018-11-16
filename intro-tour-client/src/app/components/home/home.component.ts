@@ -3,7 +3,9 @@ import { TeamService } from '../../services/team.service';
 import { UserNameService } from '../../services/user-name.service';
 import { ParticipantsService } from '../../services/participants.service';
 import { LocalstorageService } from '../../services/localstorage.service';
+import { MediaFileService } from '../../services/media-file.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-home',
@@ -17,8 +19,12 @@ export class HomeComponent implements OnInit {
 		private userName: UserNameService,
 		private participantsService: ParticipantsService,
 		private localstorageService: LocalstorageService,
-		private route: Router
+		private route: Router,
+		private mediaFileService: MediaFileService,
 	) { }
+	//variables for file system
+	public mediaFile;
+	public selectedFile;
 
 	public teamPin: string;
 	public totalMembers: number = 0;
@@ -101,4 +107,25 @@ export class HomeComponent implements OnInit {
 		console.log(this.team);
 		console.log(this.usr);
 	}
+	//**functions for file uploading to api */
+
+	onFileSelected(fileEvent: FileList){
+		this.selectedFile = fileEvent.item(0);
+		//console.log(this.selectedFile);
+	}
+	
+	uploadSelectedFile(){
+		// let fd = new FormData();
+		//   fd.append('help', this.selectedFile, this.selectedFile.name);
+		// let fd = {
+		//   file: this.selectedFile,
+		//   fileName: this.selectedFile.name
+		// };
+		this.mediaFileService.uploadMedia(this.selectedFile);
+		//console.log('test');
+		//en nu?
+	}
+	  
+	  //** end of file uploading */
+	
 }
