@@ -61,7 +61,7 @@ Route::delete('admins/{admin}', 'AdminController@delete');
 Route::get('tours', 'TourController@index');
 Route::get('tours/{code}', 'TourController@show');
 Route::post('tours', 'TourController@store');
-Route::put('tours/{tour}', 'TourController@update');
+Route::put('tours/{code}', 'TourController@update');
 Route::delete('tours/{tour}', 'TourController@delete');
 
 /* Teams */

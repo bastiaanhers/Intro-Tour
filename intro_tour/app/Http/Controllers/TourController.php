@@ -48,9 +48,9 @@ class TourController extends Controller
      * @param  \App\Tour  $tour
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(Request $request, $code)
     {
-        $tour->update($request->all());
+		$tour = Tour::where('tour_code', $code)->update($request->all());
 
         return response()->json($tour, 200);
     }
