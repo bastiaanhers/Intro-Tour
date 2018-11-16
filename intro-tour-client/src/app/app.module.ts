@@ -20,6 +20,7 @@ import { MinutesSecondsPipe } from './pipes/minutes-seconds.pipe';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { PointReplacerPipe } from './pipes/point-replacer.pipe';
 import { TeamJoinComponent } from './components/team-join/team-join.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const appRoutes: Routes = [
 	{ path: 'location', component: LocationPageComponent },
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
 		MinutesSecondsPipe,
 		LeaderboardComponent,
 		PointReplacerPipe,
-		TeamJoinComponent
+		TeamJoinComponent,
+		HeaderComponent
 	],
 	imports: [
 		AppRoutingModule,
