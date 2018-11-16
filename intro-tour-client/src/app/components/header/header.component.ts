@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { TeamService } from 'src/app/services/team.service';
+import { TourService } from 'src/app/services/tour.service';
 
 @Component({
 	selector: 'app-header',
@@ -9,7 +10,7 @@ import { TeamService } from 'src/app/services/team.service';
 })
 export class HeaderComponent implements OnInit {
 
-	constructor(private localstorageService: LocalstorageService, private teamService: TeamService) { }
+	constructor(private localstorageService: LocalstorageService, private teamService: TeamService, private tourService: TourService) { }
 
 	public teamName;
 	public timeLimit: number;
