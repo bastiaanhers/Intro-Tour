@@ -4,6 +4,9 @@ import { QuestionService } from '../../services/question.service';
 import { LocationService } from '../../services/location.service';
 import { TeamService } from '../../services/team.service';
 import { LocalstorageService } from '../../services/localstorage.service'
+import { HintService } from '../../services/hint.service';
+import { Hint } from '../../hint';
+import * as $ from 'jquery'; 
 
 @Component({
 	selector: 'app-location-page',
@@ -17,10 +20,19 @@ export class LocationPageComponent implements OnInit {
 	public question;
 	public locations = [];
 	public answerd = [];
+	public hints_bougth = [];
 	public totalPoints: number = 0;
 	public timeLimit: number;
 	public timeRemaining: number = 0;
 	private timer;
+	public hint: Hint = {
+		cost: 0,
+		hint: '',
+		event_id: null,
+		id: null,
+		is_bougth: null
+	};
+	public hintText: string = '';
 
 	ky; kx; dy; dx; km;
 
@@ -40,7 +52,7 @@ export class LocationPageComponent implements OnInit {
 
 	isTracking = false;
 
-	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService) {
+	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService, private hintService: HintService) {
 		this.getEvents();
 	}
 
@@ -83,19 +95,6 @@ export class LocationPageComponent implements OnInit {
 		this.curLocation.y = position.coords.longitude;
 	}
 
-	//de popup van het event laten zien bij het juiste event
-	public showHidePopup() {
-		this.locations.forEach(location => {
-			if (this.arePointsNear(location)) {
-				if (location.map_icon == 1) {
-					this.showWindow(location);
-				}
-			} else if (!this.arePointsNear(location)) {
-				this.hideWindow(location.id);
-			}
-		});
-	}
-
 	//check of je in de radius van de vraag bent (d.m.v de stelling van pithagoras)
 	public arePointsNear(location) {
 		this.km = location.radius.data / 1000;
@@ -116,8 +115,24 @@ export class LocationPageComponent implements OnInit {
 				this.question = question[0];
 				this.startTimer(location.id);
 				document.getElementById(`popup-${location.id}`).style.display = 'block';
+				
+				// this.hintService.getHint(location.id)
+				// 	.subscribe((res) => {
+				// 		this.resetHint();
+				// 		this.hint = res[0];
+
+				// 		if(this.hint.is_bougth == 1){
+				// 			this.hideHintButtonShowHint(location.id);
+				// 		}
+				// 	});
 			});
 	}
+
+	public hideHintButtonShowHint(id){
+		$(`#buy-hint-${id}`).hide();
+		$(`#hint-box-${id}`).show();
+	}
+	
 	public hideWindow(id) {
 		document.getElementById(`popup-${id}`).style.display = 'none';
 	}
@@ -136,23 +151,24 @@ export class LocationPageComponent implements OnInit {
 	//de locatie van elk event krijgen
 	public getLocation(events) {
 		events.forEach(event => {
+			console.log(event);
 			this._locationService.getLocation(event.event.trigger.data.location_id)
 				.subscribe((res: any) => {
 
-					if(this.localstorageService.getItem('team') != null){
+					if (this.localstorageService.getItem('team') != null) {
 						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
 						this.answerd = questions_answerd_team;
 
-						if(questions_answerd_team != undefined){
-							if(questions_answerd_team.includes(event.event.action.data.question_id)){
+						if (questions_answerd_team != undefined) {
+							if (questions_answerd_team.includes(event.event.action.data.question_id)) {
 								res[0].map_icon = 2;
-							}else{
+							} else {
 								res[0].map_icon = 1;
 							};
-						}else{
+						} else {
 							res[0].map_icon = 1;
 						}
-					}else{
+					} else {
 						res[0].map_icon = 1;
 					}
 
@@ -165,13 +181,13 @@ export class LocationPageComponent implements OnInit {
 					this.locations.push(res[0]);
 
 					console.log(this.locations);
-				
+
 				});
 		});
 	}
 
 	//answer handling
-	public checkAnswer(id) {
+	public checkAnswer(id: number) {
 		this.stopTimer();
 		if (this.given_answer == undefined) {
 			this.hideWindow(id);
@@ -186,13 +202,16 @@ export class LocationPageComponent implements OnInit {
 		this.given_answer = undefined;
 	}
 
-	public updateTeam(id) {
+	public updateTeam(id: number) {
 		let team = this.localstorageService.getItem('team');
 
 		//update team score and the questions that are answerd
 		this.locations.forEach((location, index) => {
 			if (location.id == id) {
 				team.team_score = team.team_score += this.locations[index].points;
+
+				console.log(this.locations[index]);
+
 				this.answerd.push(location.question_id);
 
 				team.questions_answerd = this.answerd;
@@ -202,8 +221,6 @@ export class LocationPageComponent implements OnInit {
 				this.teamService.updateTeam(team.id, { team_score: team.team_score })
 					.subscribe((res: Response) => { },
 						(err) => console.error(err));
-
-				
 
 				this.teamService.updateTeam(team.id, { questions_answerd: this.answerd })
 					.subscribe((res: Response) => { },
@@ -221,12 +238,12 @@ export class LocationPageComponent implements OnInit {
 				this.locations[index].points = Math.round((this.locations[index].points / this.locations[index].devider));
 			}
 		});
-		document.getElementById(`wrong-${location.id}`).style.display = 'none';
+		this.closeModal(location.id, 'wrong');
 		this.showWindow(location)
 	}
-	public close(id) {
-		document.getElementById(`wrong-${id}`).style.display = 'none';
-		document.getElementById(`right-${id}`).style.display = 'none';
+	public close(id: number) {
+		this.closeModal(id, 'wrong');
+		this.closeModal(id, 'right');
 		if (this.given_answer == 0 || this.given_answer == undefined) {
 			this.locations.forEach((location, index) => {
 				if (location.id == id) {
@@ -234,18 +251,34 @@ export class LocationPageComponent implements OnInit {
 				}
 			});
 		}
+		this.resetHint();
 		this.changeMarker(id);
 		this.updateTeam(id);
 	}
-	private changeMarker(id) {
+
+	public resetHint(){
+		this.hintText = '';
+		this.hint = {
+			cost: 0,
+			hint: '',
+			event_id: 0,
+			id: null,
+			is_bougth: null
+		}
+	}
+
+	public closeModal(id: number, element: string) {
+		document.getElementById(`${element}-${id}`).style.display = 'none';
+	}
+	private changeMarker(id: number) {
 		this.locations.forEach((location, index) => {
 			if (location.id == id) {
 				this.locations[index].map_icon = 2;
 			}
 		});
 	}
-	
-	private startTimer(locationId) {
+
+	private startTimer(locationId: number) {
 		let timeNow: number = Math.round((new Date()).getTime() / 1000);
 		let timeEnd: number = timeNow + this.timeLimit;
 		this.timeRemaining = this.timeLimit;
@@ -263,7 +296,40 @@ export class LocationPageComponent implements OnInit {
 		clearInterval(this.timer);
 	}
 
-	public giveHint(id){
-		console.log(`this is a hint for q ${id}`);
+
+	public showAreYouSureWindow(id: number) {
+		this.resetHint();
+		document.getElementById(`sure-${id}`).style.display = 'block';
+		this.hintService.getHint(id)
+			.subscribe((res) => this.hint = res[0]);
+	}
+
+	public buyHint() {
+		console.log(this.hint);
+
+		let team = this.localstorageService.getItem('team');
+
+		if (team.team_score - this.hint.cost < 0) {
+			console.error('Je hebt niet genoeg punten om een hint te kopen');
+			this.closeModal(this.hint.event_id, 'sure');
+		} else {
+			this.closeModal(this.hint.event_id, 'sure');
+
+			this.hints_bougth.push(this.hint.id);
+
+			team.team_score = team.team_score - this.hint.cost;
+			team.hints_bougth = this.hints_bougth;
+
+			this.teamService.updateTeam(team.id, { team_score: team.team_score, hints_bougth: this.hints_bougth })
+				.subscribe(
+					(res: Response) => {
+						this.localstorageService.updateItem('team', team);
+						document.getElementById(`buy-hint-${this.hint.event_id}`).style.display = 'none';
+						document.getElementById(`hint-box-${this.hint.event_id}`).style.display = 'block';
+					},
+					(err) => console.error(err)
+				);
+
+		}
 	}
 }

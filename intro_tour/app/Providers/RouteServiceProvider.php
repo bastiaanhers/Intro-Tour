@@ -83,6 +83,7 @@ class RouteServiceProvider extends ServiceProvider
                 Route::apiResource('/locations','LocationController');
                 Route::apiResource('/questions','QuestionController');
                 Route::apiResource('/teamparticipants', 'UserteamController');
+                Route::apiResource('/hints', 'HintController');
         });
     }
 }
