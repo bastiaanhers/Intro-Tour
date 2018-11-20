@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit {
 		this.timer = setInterval(() => {
 			if (this.timeRemaining <= 0) {
 				clearInterval(this.timer);
+				// what do we want to show when tour time has stoped?
 			}
 			this.timeRemaining = moment.unix(timeEnd).utc().diff(moment.utc(), 'seconds');
 			return this.timerOnPage = this.timeRemaining;
