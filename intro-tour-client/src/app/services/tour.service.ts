@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import * as moment from 'moment';
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -19,8 +17,8 @@ export class TourService {
 	}
 
 	/* Temporary function to start tour */
-	updateTourStartTime(tourCode): Observable<any> {
+	updateTour(tourCode, updateData): Observable<any> {
 
-		return this.http.put(this.apiUrl + 'tours/' + tourCode, { time_start: moment().utc().format('YYYY-MM-DD HH:mm:ss') });
+		return this.http.put(this.apiUrl + 'tours/' + tourCode, updateData);
 	}
 }

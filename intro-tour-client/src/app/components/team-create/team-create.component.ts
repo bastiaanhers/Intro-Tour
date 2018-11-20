@@ -84,7 +84,7 @@ export class TeamCreateComponent implements OnInit {
 				.subscribe(
 					(res: Response) => {
 						this.createTeam();
-						this.localStorage.setItem('tour', res);
+						this.localStorage.setItem('tour', res[0]);
 					},
 					err => {
 						this.removeLodaer();

@@ -84,7 +84,7 @@ export class TeamJoinComponent implements OnInit {
 	private getTourInfo(team) {
 		debugger;
 		this.tourService.getTour(team[0].tour_id).subscribe((res) => {
-			this.localStorage.setItem('tour', res);
+			this.localStorage.setItem('tour', res[0]);
 		})
 	}
 

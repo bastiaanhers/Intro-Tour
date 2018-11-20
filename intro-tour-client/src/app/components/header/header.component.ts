@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { TeamService } from 'src/app/services/team.service';
 import { TourService } from 'src/app/services/tour.service';
+import { Tour } from '../../tour';
+
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-header',
@@ -12,23 +15,35 @@ export class HeaderComponent implements OnInit {
 
 	constructor(private localstorageService: LocalstorageService, private teamService: TeamService, private tourService: TourService) { }
 
+	private tour: Tour;
 	public teamName;
 	public timeLimit: number;
 	public timeRemaining: number = 0;
 	private timer;
+	public timerOnPage: number = 0;
+
+	private getTour(tourCode: string) {
+		this.tourService.getTour(tourCode).subscribe((res) => {
+			this.tour = res[0];
+			this.startTimer();
+		});
+	}
 
 	// Timer functions
 	private startTimer() {
-		let timeNow: number = Math.round((new Date()).getTime() / 1000);
-		let timeEnd: number = timeNow + this.timeLimit;
+
+		this.timeLimit = this.tour.time_limit;
+		let timeOfstart = this.tour.time_start;
+		let timeNow = moment.utc(timeOfstart);
+		let timeEnd = timeNow.add(this.timeLimit, "seconds").unix();
 		this.timeRemaining = this.timeLimit;
 
 		this.timer = setInterval(() => {
 			if (this.timeRemaining <= 0) {
 				clearInterval(this.timer);
 			}
-
-			return this.timeRemaining = timeEnd - Math.round((new Date()).getTime() / 1000);
+			this.timeRemaining = moment.unix(timeEnd).utc().diff(moment.utc(), 'seconds');
+			return this.timerOnPage = this.timeRemaining;
 		}, 500);
 	}
 	private stopTimer() {
@@ -44,6 +59,7 @@ export class HeaderComponent implements OnInit {
 			} else {
 				this.teamName = this.localstorageService.getItem('team').team_name;
 			}
+			this.getTour(this.localstorageService.getItem('team').tour_id);
 		}, 100);
 	}
 

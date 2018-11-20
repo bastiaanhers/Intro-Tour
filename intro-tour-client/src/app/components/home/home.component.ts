@@ -5,6 +5,8 @@ import { ParticipantsService } from '../../services/participants.service';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { Router } from '@angular/router';
 
+import * as moment from 'moment';
+
 import { TourService } from 'src/app/services/tour.service';
 
 @Component({
@@ -40,8 +42,11 @@ export class HomeComponent implements OnInit {
 	/* Temporary function to start tour from game side of the application */
 	public startTour() {
 		let tour = this.localstorageService.getItem('tour');
-		this.tourService.updateTourStartTime(tour[0].tour_code).subscribe((res) => {
+		tour.time_start = moment().utc().format('YYYY-MM-DD HH:mm:ss');
+
+		this.tourService.updateTour(tour.tour_code, tour).subscribe((res) => {
 			console.log('succesfully started tour');
+			this.localstorageService.setItem('tour', tour);
 		},
 			err => {
 				console.error(err);
