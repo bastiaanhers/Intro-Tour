@@ -60,7 +60,9 @@ export class HeaderComponent implements OnInit {
 			} else {
 				this.teamName = this.localstorageService.getItem('team').team_name;
 			}
-			this.getTour(this.localstorageService.getItem('team').tour_id);
+			if (this.localstorageService.getItem('team')) {
+				this.getTour(this.localstorageService.getItem('team').tour_id);
+			}
 		}, 100);
 	}
 
