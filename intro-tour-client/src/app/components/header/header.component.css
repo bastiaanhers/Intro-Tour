@@ -14,7 +14,8 @@
 h1.header{
 	overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	margin: 0;
 }
 #title {
     font-family: 'Shrikhand', cursive;
