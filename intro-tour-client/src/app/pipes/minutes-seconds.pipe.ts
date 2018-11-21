@@ -13,6 +13,10 @@ export class MinutesSecondsPipe implements PipeTransform {
 			return "00:00"
 		}
 
+		if (value === 260) {
+			return "04:20 " + String.fromCodePoint(0x1F6AC);
+		}
+
 		if (minutes >= 60) {
 			return hours.toString().padStart(2, '0') + ':' + (minutes - hours * 60).toString().padStart(2, '0') + ':' + (value - minutes * 60).toString().padStart(2, '0');
 		}

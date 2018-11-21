@@ -4,6 +4,7 @@ import { TeamService } from 'src/app/services/team.service';
 import { TourService } from 'src/app/services/tour.service';
 import { Tour } from '../../tour';
 
+import * as $ from 'jquery';
 import * as moment from 'moment';
 
 @Component({
@@ -38,17 +39,35 @@ export class HeaderComponent implements OnInit {
 		let timeEnd = timeNow.add(this.timeLimit, "seconds").unix();
 		this.timeRemaining = this.timeLimit;
 
+		let timerEle = $('#tour-timer');
+
 		this.timer = setInterval(() => {
 			if (this.timeRemaining <= 0) {
 				clearInterval(this.timer);
 				// what do we want to show when tour time has stoped?
+				this.tourDone();
 			}
+
 			this.timeRemaining = moment.unix(timeEnd).utc().diff(moment.utc(), 'seconds');
+
+			if (this.timeRemaining <= (5 / 100) * this.timeLimit) {
+				// orange
+				timerEle.css('color', '#f2711c');
+			}
+			if (this.timeRemaining <= (3 / 100) * this.timeLimit) {
+				// red
+				timerEle.css('color', '#d01919');
+			}
+
 			return this.timerOnPage = this.timeRemaining;
 		}, 500);
 	}
 	private stopTimer() {
 		clearInterval(this.timer);
+	}
+
+	private tourDone() {
+		// TODO
 	}
 
 	ngOnInit() {
