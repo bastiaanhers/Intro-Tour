@@ -14,45 +14,49 @@ class QuestionsSeeder extends Seeder
         DB::table('questions')->insert
         ([
         [
-        'question' => "How can you repel the haters?",
+        'question' => "Hoe heet het hoofdgebouw van het leerpark?",
         ],[
-        'question' => "Whitch is the better paul brother?",
+        'question' => "Hoeveel jaar duurt de opleiding applicatie ontwikkelaar?",
         ],[
-        'question' => "Why are we still here?"
+        'question' => "Als je op de glijbaan gaat, ben je dan nog steeds cool?"
         ]
         ]);
 
         DB::table('answers')->insert
         ([
         [
-        'answer' => "spit on them",
+        'answer' => "Azzuro",
         'right_answer' => "0",
         'question_id' => 1,
         ],[
-        'answer' => "Dab on the haters",
+        'answer' => "Bianco",
         'right_answer' => "1",
         'question_id' => 1,
         ],[
-        'answer' => "Walk away like a responible adult",
+        'answer' => "Celeste",
         'right_answer' => "0",
         'question_id' => 1,
         ],[
-        'answer' => "Logan Paul",
+        'answer' => "3 jaar",
+        'right_answer' => "1",
+        'question_id' => 2,
+        ],[    
+        'answer' => "4 jaar",
+        'right_answer' => "0",
+        'question_id' => 2,
+        ],[
+        'answer' => "6 jaar",
         'right_answer' => "0",
         'question_id' => 2,
         ],[    
-        'answer' => "Jake Paul",
+        'answer' => "Ja",
         'right_answer' => "1",
-        'question_id' => 2,
+        'question_id' => 3,
         ],[
-        'answer' => "Just to suffer",
-        'right_answer' => "1",
-        'question_id' => 3,
-        ],[    
-        'answer' => "To survive and reproduce",
-        'right_answer' => "0",
-        'question_id' => 3,
-        ]    
+        'answer' => "Nee",
+        'rigth_answer' => "0",
+        'question_id' => 3
+        ]   
         ]);
 
     }

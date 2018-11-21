@@ -159,10 +159,10 @@ export class LocationPageComponent implements OnInit {
 	//de locatie van elk event krijgen
 	public getLocation(events) {
 		events.forEach(event => {
-			console.log(event);
 			this._locationService.getLocation(event.event.trigger.data.location_id)
 				.subscribe((res: any) => {
-
+					console.log(res[0]);
+					console.log('-----');
 					if (this.localstorageService.getItem('team') != null) {
 						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
 						this.answerd = questions_answerd_team;
@@ -185,10 +185,12 @@ export class LocationPageComponent implements OnInit {
 					res[0].question_id = event.event.action.data.question_id;
 					res[0].points = event.event.action.data.points;
 					res[0].devider = event.event.action.data.devider;
+					res[0].latitude = parseFloat(res[0].latitude);
+					res[0].longitude = parseFloat(res[0].longitude);
+
+					debugger;
 
 					this.locations.push(res[0]);
-
-					console.log(this.locations);
 
 				});
 		});

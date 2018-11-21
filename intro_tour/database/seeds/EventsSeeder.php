@@ -20,6 +20,14 @@ class EventsSeeder extends Seeder
         [
         'trigger' => '{"type": "location", "data": {"location_id": 2}}',
         'action' => '{"type": "question", "data": {"question_id": 2, "points": 150, "devider": 2, "timeLimit": 240}}'
+        ],
+        [
+        'trigger' => '{"type": "location", "data": {"location_id": 4}}',
+        'action' => '{"type": "text", "data": {"text": "Hier is de supermarkt de PLUS, hier haal je je friekandelbroodjes", "title": "Supermarkt"}}'
+        ],
+        [
+        'trigger' => '{"type": "location", "data": {"location_id": 3}}',
+        'action' => '{"type": "question", "data": {"question_id": 3, "points": 135, "devider": 2, "timeLimit": 60}}'
         ]
         ]);
 
@@ -32,6 +40,10 @@ class EventsSeeder extends Seeder
             [
                 'tour_id' => 1,
                 'event_id' => 2
+            ],
+            [
+                'tour_id' => 1,
+                'event_id' => 4
             ]
         ]);
     }

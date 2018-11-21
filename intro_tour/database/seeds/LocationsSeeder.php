@@ -26,6 +26,13 @@ class LocationsSeeder extends Seeder
         'radius' => '{"type": "circle", "data": 12}',
         'longitude' => 4.783647,
         'latitude' => 51.898856,
+        ],
+        [
+        'name' => 'De glijbaan',
+        'description' => "Ga op zoek naar een glijbaan",
+        'radius' => '{"type": "circle", "data": 15}',
+        'longitude' => 4.682584,
+        'latitude' => 51.799056
         ]
         ]);
     }

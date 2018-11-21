@@ -14,14 +14,19 @@ class HintsSeeder extends Seeder
         DB::table('hints')->insert(
             [
                 [
-                    'hint' => 'Logan is not a good boi',
+                    'hint' => 'Sinds kort zijn de opleidingen verkort',
                     'event_id' => 2,
-                    'cost' => 1
+                    'cost' => 50
                 ],
                 [
-                    'hint' => 'Dabbing is always the best solution',
+                    'hint' => 'In de buurt van het gebouw met die kleurtjes',
                     'event_id' => 1,
-                    'cost' => 5
+                    'cost' => 100
+                ],
+                [
+                    'hint' => 'Yo, wat denk je nou zelf?',
+                    'event_id' => 4,
+                    'cost' => 150
                 ]
             ]
         );
