@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit {
 					.subscribe((res) => {
 						//team opslaan in localstorage
 						res[0].questions_answerd = [];
+						res[0].hints_bougth = [];
 						this.localstorageService.setItem('team', res[0]);
 						this.team = this.localstorageService.getItem('team');
 						this.teamService.teamName(res[0].team_name);

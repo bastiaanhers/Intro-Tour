@@ -100,6 +100,7 @@ export class TeamCreateComponent implements OnInit {
 		.subscribe(
         (res:Team) => {
 			this.team.team_pin = res.team_pin;
+			this.team.team_leader = null;
 			this.createUser(res);
         },
         err => {

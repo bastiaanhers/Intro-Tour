@@ -110,27 +110,35 @@ export class LocationPageComponent implements OnInit {
 
 
 	public showWindow(location) {
+		let team = this.localstorageService.getItem('team');
+		console.log(team);
 		this._questionService.getQuestion(location.question_id)
 			.subscribe((question) => {
 				this.question = question[0];
 				this.startTimer(location.id);
 				document.getElementById(`popup-${location.id}`).style.display = 'block';
-				
-				// this.hintService.getHint(location.id)
-				// 	.subscribe((res) => {
-				// 		this.resetHint();
-				// 		this.hint = res[0];
 
-				// 		if(this.hint.is_bougth == 1){
-				// 			this.hideHintButtonShowHint(location.id);
-				// 		}
-				// 	});
+				console.log(team.hints_bougth);
+				console.log(location.id);
+
+				this.hintService.getHint(location.id)
+					.subscribe((res) => {
+						this.hint = res[0];
+						if(team.hints_bougth.includes(location.id)){
+							this.hideHintButtonShowHint(location.id);
+						}	
+					}, 
+					(err) => {
+						console.error(err);
+					});
+
+			
 			});
 	}
 
 	public hideHintButtonShowHint(id){
-		$(`#buy-hint-${id}`).hide();
-		$(`#hint-box-${id}`).show();
+		document.getElementById(`buy-hint-${id}`).style.display = 'none';
+		document.getElementById(`hint-box-${id}`).style.display = 'block';
 	}
 	
 	public hideWindow(id) {
@@ -199,7 +207,6 @@ export class LocationPageComponent implements OnInit {
 			this.hideWindow(id);
 			document.getElementById(`wrong-${id}`).style.display = 'block';
 		}
-		this.given_answer = undefined;
 	}
 
 	public updateTeam(id: number) {
@@ -209,20 +216,12 @@ export class LocationPageComponent implements OnInit {
 		this.locations.forEach((location, index) => {
 			if (location.id == id) {
 				team.team_score = team.team_score += this.locations[index].points;
-
-				console.log(this.locations[index]);
-
 				this.answerd.push(location.question_id);
 
 				team.questions_answerd = this.answerd;
 
 				this.localstorageService.updateItem('team', team);
-
-				this.teamService.updateTeam(team.id, { team_score: team.team_score })
-					.subscribe((res: Response) => { },
-						(err) => console.error(err));
-
-				this.teamService.updateTeam(team.id, { questions_answerd: this.answerd })
+				this.teamService.updateTeam(team.id, { team_score: team.team_score, questions_answerd: this.answerd})
 					.subscribe((res: Response) => { },
 						(err) => console.error(err));
 			}
@@ -232,6 +231,7 @@ export class LocationPageComponent implements OnInit {
 	public setValue(answer) {
 		this.given_answer = answer;
 	}
+
 	public tryAgain(location) {
 		this.locations.forEach((array_location, index) => {
 			if (array_location.id == location.id) {
@@ -254,6 +254,7 @@ export class LocationPageComponent implements OnInit {
 		this.resetHint();
 		this.changeMarker(id);
 		this.updateTeam(id);
+		this.given_answer = undefined;
 	}
 
 	public resetHint(){
@@ -315,7 +316,7 @@ export class LocationPageComponent implements OnInit {
 		} else {
 			this.closeModal(this.hint.event_id, 'sure');
 
-			this.hints_bougth.push(this.hint.id);
+			this.hints_bougth.push(this.hint.event_id);
 
 			team.team_score = team.team_score - this.hint.cost;
 			team.hints_bougth = this.hints_bougth;
