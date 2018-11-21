@@ -11,6 +11,11 @@
     line-height: 55px;
     margin: 0 0 0 20px;
 }
+h1.header{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 #title {
     font-family: 'Shrikhand', cursive;
     color: rgb(90, 90, 90);
