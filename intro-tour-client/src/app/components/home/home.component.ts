@@ -3,6 +3,7 @@ import { TeamService } from '../../services/team.service';
 import { UserNameService } from '../../services/user-name.service';
 import { ParticipantsService } from '../../services/participants.service';
 import { LocalstorageService } from '../../services/localstorage.service';
+import { TourService } from '../../services/tour.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
 		private userName: UserNameService,
 		private participantsService: ParticipantsService,
 		private localstorageService: LocalstorageService,
+		private tourService: TourService,
 		private route: Router
 	) { }
 
@@ -27,7 +29,8 @@ export class HomeComponent implements OnInit {
 	public team = {
 		team_name: '',
 		team_pin: '',
-		questions_answerd: []
+		questions_answerd: [],
+		tour_id: null
 	};
 	public usr = {
 		name: ''
@@ -69,6 +72,10 @@ export class HomeComponent implements OnInit {
 						this.localstorageService.setItem('team', res[0]);
 						this.team = this.localstorageService.getItem('team');
 						this.teamService.teamName(res[0].team_name);
+						this.tourService.getTour(this.team.tour_id)
+							.subscribe((res) => {
+								this.localstorageService.setItem('tour', res[0]);
+							});
 					});
 				this.participantsService.getUsersByPin(this.teamPin)
 					.subscribe((res) => {

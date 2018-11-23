@@ -58,7 +58,10 @@ export class LocationPageComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.trackMe();
+		if(this.isTracking == false){
+			this.trackMe();
+		}
+		
 		this.z = 18;
 		this.icons = [
 			{
@@ -147,7 +150,13 @@ export class LocationPageComponent implements OnInit {
 
 	//alle events ophalen
 	public getEvents() {
-		this._eventService.getEvents()
+		let tour = this.localstorageService.getItem('tour');
+
+		console.log(tour);
+
+		debugger;
+
+		this._eventService.getEventsByTourId(tour.id)
 			.subscribe((res: any) => {
 				this.getLocation(res);
 			});
@@ -187,8 +196,6 @@ export class LocationPageComponent implements OnInit {
 					res[0].devider = event.event.action.data.devider;
 					res[0].latitude = parseFloat(res[0].latitude);
 					res[0].longitude = parseFloat(res[0].longitude);
-
-					debugger;
 
 					this.locations.push(res[0]);
 
