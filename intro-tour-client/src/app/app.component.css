@@ -10,7 +10,8 @@
 }
 
 body{
-    background-color: var(--main-bg-color);
+  background-color: var(--main-bg-color);
+	padding-top: 50px;
 }
 main{
     margin-top: 55px;

@@ -174,7 +174,8 @@ export class LocationPageComponent implements OnInit {
 	public checkAnswer(id) {
 		this.stopTimer();
 		if (this.given_answer == undefined) {
-			alert('Je moet wel een antwoord kiezen');
+			this.hideWindow(id);
+			document.getElementById(`wrong-${id}`).style.display = 'block';
 		} else if (this.given_answer == 1) {
 			this.hideWindow(id);
 			document.getElementById(`right-${id}`).style.display = 'block';
@@ -182,6 +183,7 @@ export class LocationPageComponent implements OnInit {
 			this.hideWindow(id);
 			document.getElementById(`wrong-${id}`).style.display = 'block';
 		}
+		this.given_answer = undefined;
 	}
 
 	public updateTeam(id) {
@@ -225,7 +227,7 @@ export class LocationPageComponent implements OnInit {
 	public close(id) {
 		document.getElementById(`wrong-${id}`).style.display = 'none';
 		document.getElementById(`right-${id}`).style.display = 'none';
-		if (this.given_answer == 0) {
+		if (this.given_answer == 0 || this.given_answer == undefined) {
 			this.locations.forEach((location, index) => {
 				if (location.id == id) {
 					this.locations[index].points = 0;
