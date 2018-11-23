@@ -52,11 +52,11 @@ export class HeaderComponent implements OnInit {
 
 			if (this.timeRemaining <= (5 / 100) * this.timeLimit) {
 				// orange
-				timerEle.css('color', '#f2711c');
+				timerEle.css('color', 'var(--ui-orange)');
 			}
 			if (this.timeRemaining <= (3 / 100) * this.timeLimit) {
 				// red
-				timerEle.css('color', '#d01919');
+				timerEle.css('color', 'var(--ui-red)');
 			}
 
 			return this.timerOnPage = this.timeRemaining;
