@@ -58,6 +58,9 @@ export class HeaderComponent implements OnInit {
 				// red
 				timerEle.css('color', 'var(--ui-red)');
 			}
+			if (this.timeRemaining <= 0) {
+				timerEle.addClass('blinker');
+			}
 
 			return this.timerOnPage = this.timeRemaining;
 		}, 500);
