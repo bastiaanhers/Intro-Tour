@@ -32,10 +32,12 @@ export class HomeComponent implements OnInit {
 	public team = {
 		team_name: '',
 		team_pin: '',
+		team_leader: '',
 		questions_answerd: []
 	};
 	public usr = {
-		name: ''
+		name: '',
+		id: null
 	};
 	public members: Array<any>;
 
