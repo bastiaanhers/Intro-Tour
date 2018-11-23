@@ -44,29 +44,36 @@ export class HeaderComponent implements OnInit {
 		this.timer = setInterval(() => {
 			if (this.timeRemaining <= 0) {
 				clearInterval(this.timer);
-				// what do we want to show when tour time has stoped?
 				this.tourDone();
 			}
 
 			this.timeRemaining = moment.unix(timeEnd).utc().diff(moment.utc(), 'seconds');
 
-			if (this.timeRemaining <= (5 / 100) * this.timeLimit) {
-				// orange
-				timerEle.css('color', 'var(--ui-orange)');
-			}
-			if (this.timeRemaining <= (3 / 100) * this.timeLimit) {
-				// red
-				timerEle.css('color', 'var(--ui-red)');
-			}
-			if (this.timeRemaining <= 0) {
-				timerEle.addClass('blinker');
-			}
+			this.timerTextColor(timerEle);
 
 			return this.timerOnPage = this.timeRemaining;
 		}, 500);
 	}
 	private stopTimer() {
 		clearInterval(this.timer);
+	}
+
+	private timerTextColor(timerEle) {
+		// 10% left on timer
+		if (this.timeRemaining <= (10 / 100) * this.timeLimit) {
+			// orange
+			timerEle.css('color', 'var(--ui-orange)');
+		}
+		// 5% left on timer
+		if (this.timeRemaining <= (5 / 100) * this.timeLimit) {
+			// red
+			timerEle.css('color', 'var(--ui-red)');
+		}
+		// 1% left on timer
+		if (this.timeRemaining <= (5 / 100) * this.timeLimit) {
+			//blink red
+			timerEle.addClass('blinker');
+		}
 	}
 
 	private tourDone() {
