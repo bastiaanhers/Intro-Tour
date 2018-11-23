@@ -20,6 +20,7 @@ import { MinutesSecondsPipe } from './pipes/minutes-seconds.pipe';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { PointReplacerPipe } from './pipes/point-replacer.pipe';
 import { TeamJoinComponent } from './components/team-join/team-join.component';
+import { HeaderComponent } from './components/header/header.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
 const appRoutes: Routes = [
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
 		LeaderboardComponent,
 		PointReplacerPipe,
 		TeamJoinComponent,
+		HeaderComponent,
 		SettingsComponent
 	],
 	imports: [

@@ -5,6 +5,10 @@ import { ParticipantsService } from '../../services/participants.service';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { Router } from '@angular/router';
 
+import * as moment from 'moment';
+
+import { TourService } from 'src/app/services/tour.service';
+
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -17,6 +21,7 @@ export class HomeComponent implements OnInit {
 		private userName: UserNameService,
 		private participantsService: ParticipantsService,
 		private localstorageService: LocalstorageService,
+		private tourService: TourService,
 		private route: Router
 	) { }
 
@@ -33,6 +38,20 @@ export class HomeComponent implements OnInit {
 		name: ''
 	};
 	public members: Array<any>;
+
+	/* Temporary function to start tour from game side of the application */
+	public startTour() {
+		let tour = this.localstorageService.getItem('tour');
+		tour.time_start = moment().utc().format('YYYY-MM-DD HH:mm:ss');
+
+		this.tourService.updateTour(tour.tour_code, tour).subscribe((res) => {
+			console.log('succesfully started tour');
+			this.localstorageService.setItem('tour', tour);
+		},
+			err => {
+				console.error(err);
+			});
+	}
 
 	ngOnInit() {
 		// Subscribe to team name from the team service
@@ -85,11 +104,11 @@ export class HomeComponent implements OnInit {
 
 			// temporary fix
 			this.participantsService.getUsersByPin(this.teamPin)
-			.subscribe((res) => {
-				this.localstorageService.setItem('members', res);
-				this.members = this.localstorageService.getItem('members');
-				this.totalMembers = this.members.length;
-			});
+				.subscribe((res) => {
+					this.localstorageService.setItem('members', res);
+					this.members = this.localstorageService.getItem('members');
+					this.totalMembers = this.members.length;
+				});
 			//end temporary fix
 
 			this.team.questions_answerd = [];
@@ -97,7 +116,7 @@ export class HomeComponent implements OnInit {
 
 	}
 
-	getUsr(){
+	getUsr() {
 		console.log(this.team);
 		console.log(this.usr);
 	}

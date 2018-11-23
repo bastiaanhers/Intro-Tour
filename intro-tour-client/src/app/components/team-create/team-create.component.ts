@@ -8,6 +8,7 @@ import { MessageTypes } from '../../message-types';
 import { MessagesService } from '../../services/messages.service';
 import { TourService } from '../../services/tour.service';
 import { ParticipantsService } from '../../services/participants.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { Player } from '../../player';
 import { Team } from '../../team';
 import { User } from '../../user';
@@ -28,7 +29,8 @@ export class TeamCreateComponent implements OnInit {
 		private teamService: TeamService,
 		private messagesServices: MessagesService,
 		private tourService: TourService,
-		private participantService: ParticipantsService
+		private participantService: ParticipantsService,
+		private localStorage: LocalstorageService,
 	) { }
 
 	player: Player = {
@@ -82,6 +84,7 @@ export class TeamCreateComponent implements OnInit {
 				.subscribe(
 					(res: Response) => {
 						this.createTeam();
+						this.localStorage.setItem('tour', res[0]);
 					},
 					err => {
 						this.removeLodaer();

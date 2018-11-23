@@ -13,6 +13,28 @@
     box-shadow: 0px 1px 2px #00000073;
 }
 
+/* timer style */
+.timer {
+	transition: color 1s;
+}
+
+.timer.blinker {
+	animation-name: timer-blink;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes timer-blink {
+	0% {
+		color: black;
+	}
+	50% {
+		color: var(--ui-red);
+	}
+	100% {
+		color: black;
+	}
+}
 /* UI container */
 .ui.container {
 	margin-top: 14px;
@@ -44,7 +66,6 @@
     top: 50%;
     left: 20px;
     transform: translate(0%, -50%);
-    
 }
 .modal .bar {
     height: 20%;
