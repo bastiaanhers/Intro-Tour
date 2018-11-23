@@ -7,6 +7,9 @@
     box-shadow: 0px .5px 5px .1px rgba(112,112,112,.5);
     z-index: 100;
 }
+.page-header .ui.container {
+	margin-top: -1rem;
+}
 .header {
     line-height: 55px;
     margin: 0 0 0 20px;
