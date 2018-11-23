@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	private tourDone() {
-		// TODO
+		$('.q-open-btn').prop('disabled', true);
 	}
 
 	ngOnInit() {
