@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
 
 	// Timer functions
 	private startTimer() {
-
 		this.timeLimit = this.tour.time_limit;
 		let timeOfstart = this.tour.time_start;
 		let timeNow = moment.utc(timeOfstart);
@@ -40,6 +39,10 @@ export class HeaderComponent implements OnInit {
 		this.timeRemaining = this.timeLimit;
 
 		let timerEle = $('#tour-timer');
+
+		if (timeOfstart === null) {
+			return this.timerOnPage = this.timeLimit;
+		}
 
 		this.timer = setInterval(() => {
 			if (this.timeRemaining <= 0) {

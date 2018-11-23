@@ -26,13 +26,13 @@
 
 @keyframes timer-blink {
 	0% {
-		color: black;
-	}
-	50% {
 		color: var(--ui-red);
 	}
+	50% {
+		color: #000000;
+	}
 	100% {
-		color: black;
+		color: var(--ui-red);
 	}
 }
 /* UI container */
