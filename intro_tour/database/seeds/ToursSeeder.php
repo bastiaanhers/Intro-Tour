@@ -32,5 +32,6 @@ class ToursSeeder extends Seeder
                 'tour_code' => 654321,
             ]
         ]);
+
     }
 }
