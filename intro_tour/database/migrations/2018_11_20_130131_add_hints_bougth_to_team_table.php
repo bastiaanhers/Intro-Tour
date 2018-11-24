@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTeamsTable extends Migration
+class AddHintsBougthToTeamTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('team_name');
-            $table->integer('tour_id');
-            $table->integer('team_score')->default(150);
-            $table->timestamps();
+        Schema::table('teams', function (Blueprint $table) {
+            $table->jsonb('hints_bougth')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teams');
+        Schema::table('teams', function (Blueprint $table) {
+            $table->dropColumn('hints_bougth');
+        });
     }
 }

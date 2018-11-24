@@ -101,17 +101,18 @@ export class TeamCreateComponent implements OnInit {
 		this.teamService.teamName(this.team.team_name);
 		//this.http.post(this.apiUrl + 'teams', this.team) old
 		this.teamService.createTeam(this.team)
-			.subscribe(
-				(res: Team) => {
-					this.team.team_pin = res.team_pin;
-					this.createUser(res);
-				},
-				err => {
-					console.error(err);
-					this.removeLodaer();
-					this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
-				}
-			);
+		.subscribe(
+        (res:Team) => {
+			this.team.team_pin = res.team_pin;
+			this.team.team_leader = null;
+			this.createUser(res);
+        },
+        err => {
+			console.error(err);
+			this.removeLodaer();
+			this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
+        }
+      );
 	}
 
 	// Post call to create new user

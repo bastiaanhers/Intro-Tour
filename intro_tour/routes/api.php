@@ -81,3 +81,6 @@ Route::put('locations/{id}', 'LocationController@update');
 
 /* questions */
 Route::get('questions/{id}', 'QuestionController@show');
+// Hints
+Route::get('hints/{id}', 'HintController@show');
+Route::put('hints/{hint}', 'HintController@update');

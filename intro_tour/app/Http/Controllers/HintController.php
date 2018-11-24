@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Participant;
+use App\Hint;
 
-class UserteamController extends Controller
+class HintController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,12 +41,12 @@ class UserteamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($pin)
+    public function show($id)
     {
-        return Participant::where('team_id', $pin)->get();
+        return Hint::where('event_id', $id)->get();
     }
 
     /**
@@ -64,12 +64,14 @@ class UserteamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Hint  $hint
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Hint $hint)
     {
-        //
+        $hint->update($request->all());
+
+        return response()->json($hint, 200);
     }
 
     /**
