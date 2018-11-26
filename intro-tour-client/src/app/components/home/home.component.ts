@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
 		this.tourService.updateTour(tour.tour_code, tour).subscribe((res) => {
 			console.log('succesfully started tour');
 			this.localstorageService.setItem('tour', tour);
+			location.reload();
 		},
 			err => {
 				console.error(err);
