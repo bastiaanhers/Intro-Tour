@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 
-import { TourService } from 'src/app/services/tour.service';
-
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -34,9 +32,8 @@ export class HomeComponent implements OnInit {
 		team_name: '',
 		team_pin: '',
 		questions_answerd: [],
-		tour_id: null
-		team_leader: '',
-		questions_answerd: []
+		tour_id: null,
+		team_leader: ''
 	};
 	public usr = {
 		name: '',
