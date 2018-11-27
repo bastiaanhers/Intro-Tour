@@ -114,15 +114,11 @@ export class LocationPageComponent implements OnInit {
 
 	public showWindow(location) {
 		let team = this.localstorageService.getItem('team');
-		console.log(team);
 		this._questionService.getQuestion(location.question_id)
 			.subscribe((question) => {
 				this.question = question[0];
 				this.startTimer(location.id);
 				document.getElementById(`popup-${location.id}`).style.display = 'block';
-
-				console.log(team.hints_bougth);
-				console.log(location.id);
 
 				this.hintService.getHint(location.id)
 					.subscribe((res) => {
@@ -152,10 +148,6 @@ export class LocationPageComponent implements OnInit {
 	public getEvents() {
 		let tour = this.localstorageService.getItem('tour');
 
-		console.log(tour);
-
-		debugger;
-
 		this._eventService.getEventsByTourId(tour.id)
 			.subscribe((res: any) => {
 				this.getLocation(res);
@@ -170,8 +162,6 @@ export class LocationPageComponent implements OnInit {
 		events.forEach(event => {
 			this._locationService.getLocation(event.event.trigger.data.location_id)
 				.subscribe((res: any) => {
-					console.log(res[0]);
-					console.log('-----');
 					if (this.localstorageService.getItem('team') != null) {
 						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
 						this.answerd = questions_answerd_team;
@@ -315,8 +305,6 @@ export class LocationPageComponent implements OnInit {
 	}
 
 	public buyHint() {
-		console.log(this.hint);
-
 		let team = this.localstorageService.getItem('team');
 
 		if (team.team_score - this.hint.cost < 0) {
