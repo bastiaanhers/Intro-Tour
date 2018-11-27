@@ -5,8 +5,9 @@ import { LocationService } from '../../services/location.service';
 import { TeamService } from '../../services/team.service';
 import { LocalstorageService } from '../../services/localstorage.service'
 import { HintService } from '../../services/hint.service';
+import { TimerService } from 'src/app/services/timer.service';
 import { Hint } from '../../hint';
-import * as $ from 'jquery'; 
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-location-page',
@@ -25,6 +26,7 @@ export class LocationPageComponent implements OnInit {
 	public timeLimit: number;
 	public timeRemaining: number = 0;
 	private timer;
+	public showOpenQuestionButton: boolean;
 	public hint: Hint = {
 		cost: 0,
 		hint: '',
@@ -52,16 +54,18 @@ export class LocationPageComponent implements OnInit {
 
 	isTracking = false;
 
-	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService, private hintService: HintService) {
+	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService, private hintService: HintService, private timerService: TimerService) {
 		this.getEvents();
 	}
 
 
 	ngOnInit() {
-		if(this.isTracking == false){
+		this.timerService.timeUp.subscribe(showOpenQuestionButton => this.showOpenQuestionButton = showOpenQuestionButton ? false : true);
+
+		if (this.isTracking == false) {
 			this.trackMe();
 		}
-		
+
 		this.z = 18;
 		this.icons = [
 			{
@@ -123,23 +127,23 @@ export class LocationPageComponent implements OnInit {
 				this.hintService.getHint(location.id)
 					.subscribe((res) => {
 						this.hint = res[0];
-						if(team.hints_bougth.includes(location.id)){
+						if (team.hints_bougth.includes(location.id)) {
 							this.hideHintButtonShowHint(location.id);
-						}	
-					}, 
-					(err) => {
-						console.error(err);
-					});
+						}
+					},
+						(err) => {
+							console.error(err);
+						});
 
-			
+
 			});
 	}
 
-	public hideHintButtonShowHint(id){
+	public hideHintButtonShowHint(id) {
 		document.getElementById(`buy-hint-${id}`).style.display = 'none';
 		document.getElementById(`hint-box-${id}`).style.display = 'block';
 	}
-	
+
 	public hideWindow(id) {
 		document.getElementById(`popup-${id}`).style.display = 'none';
 	}
@@ -220,7 +224,7 @@ export class LocationPageComponent implements OnInit {
 				team.questions_answerd = this.answerd;
 
 				this.localstorageService.updateItem('team', team);
-				this.teamService.updateTeam(team.id, { team_score: team.team_score, questions_answerd: this.answerd})
+				this.teamService.updateTeam(team.id, { team_score: team.team_score, questions_answerd: this.answerd })
 					.subscribe((res: Response) => { },
 						(err) => console.error(err));
 			}
@@ -256,7 +260,7 @@ export class LocationPageComponent implements OnInit {
 		this.given_answer = undefined;
 	}
 
-	public resetHint(){
+	public resetHint() {
 		this.hintText = '';
 		this.hint = {
 			cost: 0,

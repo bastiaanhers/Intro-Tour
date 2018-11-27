@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { TeamService } from 'src/app/services/team.service';
 import { TourService } from 'src/app/services/tour.service';
+import { TimerService } from 'src/app/services/timer.service';
 import { Tour } from '../../tour';
 
 import * as $ from 'jquery';
@@ -14,7 +15,7 @@ import * as moment from 'moment';
 })
 export class HeaderComponent implements OnInit {
 
-	constructor(private localstorageService: LocalstorageService, private teamService: TeamService, private tourService: TourService) { }
+	constructor(private localstorageService: LocalstorageService, private teamService: TeamService, private tourService: TourService, private timerService: TimerService) { }
 
 	private tour: Tour;
 	public teamName;
@@ -32,6 +33,9 @@ export class HeaderComponent implements OnInit {
 
 	// Timer functions
 	private startTimer() {
+		// set time up to false
+		this.timerService.newTimeUpStatus(false);
+
 		this.timeLimit = this.tour.time_limit;
 		let timeOfstart = this.tour.time_start;
 		let timeNow = moment.utc(timeOfstart);
@@ -80,7 +84,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	private tourDone() {
-		$('.q-open-btn').prop('disabled', true);
+		this.timerService.newTimeUpStatus(true);
 	}
 
 	ngOnInit() {

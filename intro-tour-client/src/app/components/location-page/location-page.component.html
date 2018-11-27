@@ -10,7 +10,7 @@
 				<br>klik op de knop om het event te openen
 				<br>voor <b>{{location.points}}</b> punten
 			</p>
-			<button class="q-open-btn small green ui button" (click)="showWindow(location)">OPEN</button>
+			<button *ngIf="showOpenQuestionButton" class="q-open-btn small green ui button" (click)="showWindow(location)">OPEN</button>
 		</agm-info-window>
 		<agm-info-window *ngIf="!arePointsNear(location) && location.map_icon == 1">
 			<p><span class="info-window-title">{{location.name}}</span>
@@ -45,7 +45,8 @@
 				<p>{{hint.hint}}</p>
 			</div>
 			<div id="buy-hint-{{location.id}}">
-				<button class="normal one ui blue button" id="buy-hint-btn" (click)='showAreYouSureWindow(location.id)'>Koop een hint</button>
+				<button class="normal one ui blue button" id="buy-hint-btn" (click)='showAreYouSureWindow(location.id)'>Koop een
+					hint</button>
 			</div>
 		</div>
 	</div>
