@@ -11,6 +11,7 @@ export class MediaFileService {
 
   constructor(private http: HttpClient) { }
 
+// deze functie wordt bedoeld om de media op te halen aan het begin van de tour.
   public getMedia(eventId): Observable<any>{
 
     return this.http.get(this.apiUrl + 'mediafile/' + eventId);
@@ -32,8 +33,20 @@ export class MediaFileService {
     //       console.log(pair[0]+ ', ' + pair[1]); 
     //     }
 
+  //try no4
+    //* .map(() => { return true; })
+    //* .catch((e) => this.handleError(e));
+    //* const endpoint = this.apiUrl + 'mediafileupload';
+    //* const formData: FormData = new FormData();
+    //* formData.append('fileKey', mediaFile, mediaFile.name);
+    //* return this.http
+    //*   .post(endpoint, formData)
+    //*   .map(() => { return true; })
+    //*   .catch((e) => this.handleError(e));
+
 //try no5
-    var myFormData = {
+//maakt een formdata aan om door te sturen via de api
+  var myFormData = {
       key1: mediaFile,
       key2: mediaFile.name
   };
@@ -44,22 +57,11 @@ export class MediaFileService {
       console.log(key, myFormData[key]);
       fd.append(key, myFormData[key]);
   }
+//*
    console.log(this.http.post(this.apiUrl + 'mediafileupload', fd));
    return 
-    //try no4
-    //* .map(() => { return true; })
-    //* .catch((e) => this.handleError(e));
-    //* const endpoint = this.apiUrl + 'mediafileupload';
-    //* const formData: FormData = new FormData();
-    //* formData.append('fileKey', mediaFile, mediaFile.name);
-    //* return this.http
-    //*   .post(endpoint, formData)
-    //*   .map(() => { return true; })
-    //*   .catch((e) => this.handleError(e));
+  
   }
 
-  public testFunction(){
-    return 'Maybe Something Wrong?';
-  }
 }
 

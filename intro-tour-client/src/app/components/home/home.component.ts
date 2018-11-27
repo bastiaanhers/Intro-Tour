@@ -109,11 +109,13 @@ export class HomeComponent implements OnInit {
 	}
 	//**functions for file uploading to api */
 
+	//wanneer het image inputveld veranderd wordt het bestand opgeslagen als selected file
 	onFileSelected(fileEvent: FileList){
 		this.selectedFile = fileEvent.item(0);
 		//console.log(this.selectedFile);
 	}
 	
+	//roept de functie aan en stuurt het bestand mee
 	uploadSelectedFile(){
 		// let fd = new FormData();
 		//   fd.append('help', this.selectedFile, this.selectedFile.name);
@@ -123,7 +125,6 @@ export class HomeComponent implements OnInit {
 		// };
 		this.mediaFileService.uploadMedia(this.selectedFile);
 		//console.log('test');
-		//en nu?
 	}
 	  
 	  //** end of file uploading */
