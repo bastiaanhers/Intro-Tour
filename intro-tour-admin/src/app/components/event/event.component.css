@@ -1,0 +1,9 @@
+.page{
+    margin: 10px;
+}
+.map{
+    width: 50%;
+}
+agm-map{
+    height: 500px;
+}

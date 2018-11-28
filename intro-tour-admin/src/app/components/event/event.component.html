@@ -1,1 +1,9 @@
-<h1>Maak een event aan!</h1>
+<div class="page">
+  <h1>Maak een event aan!</h1>
+  <div class="map">
+    <agm-map [latitude]="curPosition.x" [longitude]="curPosition.y" [zoom]="15" (mapClick)="getLocationOnMap($event)">
+      <agm-marker [latitude]="chosen_lat" [longitude]="chosen_long"></agm-marker>
+    </agm-map>    
+  </div>
+</div>
+
