@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use Illuminate\Http\Request;
+use App\tour_admin;
 
 class AdminController extends Controller
 {
@@ -66,5 +67,10 @@ class AdminController extends Controller
         $admin->delete();
 
         return response()->json(null, 204);
+    }
+    
+    public function gettours($id){
+        $tours = tour_admin::with('tour')->with('admin')->where('admin_id', '=', $id)->get();
+        return $tours;
     }
 }

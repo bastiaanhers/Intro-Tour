@@ -56,6 +56,8 @@ Route::post('admins', 'AdminController@store');
 Route::put('admins/{admin}', 'AdminController@update');
 Route::delete('admins/{admin}', 'AdminController@delete');
 
+Route::get('admin/gettours/{id}', 'AdminController@gettours');
+
 /* Tours */
 Route::get('tours', 'TourController@index');
 Route::get('tours/{code}', 'TourController@show');
@@ -82,12 +84,9 @@ Route::put('locations/{id}', 'LocationController@update');
 
 /* questions */
 Route::get('questions/{id}', 'QuestionController@show');
-<<<<<<< HEAD
 /*File Upload*/
 Route::get('mediafile/{id}', 'MediaFileController@show');
 Route::post('mediafileupload', 'MediaFileController@store');
-=======
 // Hints
 Route::get('hints/{id}', 'HintController@show');
 Route::put('hints/{hint}', 'HintController@update');
->>>>>>> 8df0b6e7c5a0e1144388323894f8253240223ee6
