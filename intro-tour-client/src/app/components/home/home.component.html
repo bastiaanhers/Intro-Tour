@@ -12,9 +12,20 @@
         <p>{{member.name}} <span *ngIf="member.id == team.team_leader"><i class="fas fa-crown" style="color: #ffc938;"></i></span></p>
       </div>
     </div>
+
     <div class="content">
       <input type="file" (change)="onFileSelected($event.target.files)">
       <button type="button" (click)="uploadSelectedFile()">submit</button> 
     </div>
+    <!-- 
+            _
+        .__(.)< (woof)
+         \___)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     -->
+
   </div>
+	<!-- ¡¡Temporary button for starting tour!! -->
+	<button class="ui button large green" (click)="startTour()">Start Tour</button>
 </div>
