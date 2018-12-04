@@ -81,6 +81,7 @@ Route::get('events/{id}', 'EventController@show');
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
 Route::put('locations/{id}', 'LocationController@update');
+Route::post('locations', 'LocationController@store');
 
 /* questions */
 Route::get('questions/{id}', 'QuestionController@show');

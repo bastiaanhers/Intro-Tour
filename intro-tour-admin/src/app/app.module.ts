@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventSideNavComponent } from './components/event-side-nav/event-side-nav.component';
 
+import { AgmCoreModule } from '@agm/core';
+
 
 const appRoutes: Routes = [
   {path: 'event', component: EventComponent}, 
@@ -31,7 +33,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
-    )
+    ),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
