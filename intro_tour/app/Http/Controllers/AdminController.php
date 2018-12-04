@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use Illuminate\Http\Request;
 use App\tour_admin;
+use App\Tour;
 
 class AdminController extends Controller
 {
@@ -70,7 +71,14 @@ class AdminController extends Controller
     }
     
     public function gettours($id){
-        $tours = tour_admin::with('tour')->with('admin')->where('admin_id', '=', $id)->get();
-        return $tours;
+        $tourIds = [];
+        $tourAdmin = tour_admin::with('tour')->with('admin')->where('admin_id', '=', $id)->get();
+
+        foreach ($tourAdmin as $tourId) {
+            $tourInfo = Tour::where('tour_code', '=', $tourId['tour_id'])->get();
+            array_push($tourIds, $tourInfo);    
+        }
+
+        return $tourIds;
     }
 }

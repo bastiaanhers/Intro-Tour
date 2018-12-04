@@ -1,0 +1,22 @@
+<div class="content">
+  <!--als de admin nog geen tour heeft aangemaakt-->
+  <div *ngIf="notours; then notour; else showtours"></div>
+  <!--shows tours-->
+  <ng-template #showtours>
+    <h4 class="ui sub header">Mijn tours</h4>
+    <!-- loops door alle tours heen -->
+    {{tours[0].name}}
+    <ng-template *ngFor="let tour of resultArray">
+      <h5>{{tour[0]['name']}}{{tour}}</h5>
+        <button>edit</button>
+        <button>delete</button>
+      <div class="description">
+        <p>{{tour[0]}}</p>
+      </div>
+    </ng-template>
+  </ng-template>
+
+  <ng-template>
+    geen tour aanwezig
+  </ng-template>
+</div>

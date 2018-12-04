@@ -8,11 +8,13 @@ import { EventComponent } from './components/event/event.component';
 import { NavigateComponent } from './components/navigate/navigate.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EventSideNavComponent } from './components/event-side-nav/event-side-nav.component';
 
 
 const appRoutes: Routes = [
   {path: 'event', component: EventComponent}, 
   {path: '', component: HomeComponent},
+  {path: 'event-side-nav', component:EventSideNavComponent}
 ]
 
 @NgModule({
@@ -20,7 +22,8 @@ const appRoutes: Routes = [
     AppComponent,
     EventComponent,
     NavigateComponent,
-    HomeComponent
+    HomeComponent,
+    EventSideNavComponent
   ],
   imports: [
     BrowserModule,
