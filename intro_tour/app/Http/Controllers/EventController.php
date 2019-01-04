@@ -53,7 +53,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id 
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -95,4 +95,14 @@ class EventController extends Controller
     {
         //
     }
-}
+    public function bonus(){
+        $events = event_tour::with('event')->with('tour')->where('tour_id', '=', $id)->get();
+        foreach ($events as $event) {
+            if ($event) {
+                
+            }
+        }
+
+        }
+    }
+

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 	private getTour(tourCode: string) {
 		this.tourService.getTour(tourCode).subscribe((res) => {
 			this.tour = res[0];
-			this.startTimer();
+			//this.startTimer();
 		});
 	}
 

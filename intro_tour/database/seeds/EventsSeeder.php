@@ -25,6 +25,23 @@ class EventsSeeder extends Seeder
         [
         'trigger' => '{"type": "location", "data": {"location_id": 3}}',
         'action' => '{"type": "question", "data": {"question_id": 3, "points": 135, "devider": 2, "timeLimit": 60}}'
+        ],        
+        [   
+            'trigger' => '{"type": "bonus", "data": {"active": false}}',
+            'action' => '{"type": "question", "data": {"question_id": 1, "points": 500, "devider": 3, "timeLimit": 240}}'
+        ],
+        [ 
+            'trigger' => '{"type": "bonus", "data": {"active": false}}',
+            'action' => '{"type": "question", "data": {"question_id": 1, "points": 500, "devider": 3, "timeLimit": 240}}'
+        ],
+        [
+     
+            'trigger' => '{"type": "bonus", "data": {"active": false}}',
+            'action' => '{"type": "question", "data": {"question_id": 1, "points": 500, "devider": 3, "timeLimit": 240}}'
+        ],
+        [
+            'trigger' => '{"type": "bonus", "data": {"active": false}}',
+            'action' => '{"type": "question", "data": {"question_id": 1, "points": 500, "devider": 3, "timeLimit": 240}}'
         ],
         // tour 2
         [
@@ -51,7 +68,7 @@ class EventsSeeder extends Seeder
         [
             'trigger' => '{"type": "location", "data": {"location_id": 9}}',
             'action' => '{"type": "question", "data": {"question_id": 9, "points": 135, "devider": 2, "timeLimit": 60}}'
-        ]
+        ], 
         ]);
 
         DB::table('event_tour')->insert
@@ -69,31 +86,47 @@ class EventsSeeder extends Seeder
                 'tour_id' => 1,
                 'event_id' => 3
             ],
+            [
+                'tour_id' => 1,
+                'event_id' => 4
+            ], 
+            [
+                'tour_id' => 1,
+                'event_id' => 5
+            ], 
+            [
+                'tour_id' => 1,
+                'event_id' => 6
+            ], 
+            [
+                'tour_id' => 1,
+                'event_id' => 7
+            ],
             // tour 2
             [
                 'tour_id' => 2,
-                'event_id' => 4
+                'event_id' => 8
             ],
             [
                 'tour_id' => 2,
-                'event_id' => 5
+                'event_id' => 9
             ],
             [
                 'tour_id' => 2,
-                'event_id' => 6
+                'event_id' => 10
             ],
             // tour 3
             [
                 'tour_id' => 3,
-                'event_id' => 7
+                'event_id' => 11
             ],
             [
                 'tour_id' => 3,
-                'event_id' => 8
+                'event_id' => 12
             ],
             [
                 'tour_id' => 3,
-                'event_id' => 9
+                'event_id' => 13
             ]
         ]);
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
+import { BonusService } from '../../services/bonus.service';
 import { QuestionService } from '../../services/question.service';
 import { LocationService } from '../../services/location.service';
 import { HttpClientModule } from "@angular/common/http"
@@ -40,6 +41,7 @@ export class LocationPageComponent implements OnInit {
 		id: null,
 		is_bougth: null
 	};
+	public allBonusEvents = [];
 	public hintText: string = '';
 
 	ky; kx; dy; dx; km;
@@ -60,7 +62,7 @@ export class LocationPageComponent implements OnInit {
 
 	isTracking = false;
 
-	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService, private hintService: HintService, private timerService: TimerService) {
+	constructor(private _bonusService: BonusService ,private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService, private hintService: HintService, private timerService: TimerService) {
 		this.getEvents();
 	}
 
@@ -88,7 +90,32 @@ export class LocationPageComponent implements OnInit {
 			}
 		];
 	}
-  
+
+	private bonusInterval(tourid){
+		setInterval(() => {this.checkForBonusEvents(tourid)} , 30000);
+
+	}
+	private checkForBonusEvents(tourid) {
+		let newBonusEvents = [];
+		
+		this._eventService.getEventsByTourId(tourid)
+			.subscribe((res: any) => {
+				res.forEach(event => {
+					if (event.event.trigger.type == 'bonus'){
+						newBonusEvents.push([event.event.id , event.event.trigger.data.active]);
+					}
+				});
+			});
+			newBonusEvents.forEach(event => {
+				if (event[1]) {
+					console.log(event[1]);
+					console.log(this.allBonusEvents[1])
+				}
+			});
+			console.log(newBonusEvents);
+			console.log(newBonusEvents);
+		
+	}
 	//de gebruiker zijn locatie ophalen en laten zien op de kaart
 	private trackMe() {
 		if (navigator.geolocation) {
@@ -161,6 +188,7 @@ export class LocationPageComponent implements OnInit {
 		this._eventService.getEventsByTourId(tour.id)
 			.subscribe((res: any) => {
 				this.getLocation(res);
+				this.filterBonus(res, tour.id);
 			});
 	}
 	//vraag bij een event ophalen
@@ -170,42 +198,53 @@ export class LocationPageComponent implements OnInit {
 	//de locatie van elk event krijgen
 	public getLocation(events) {
 		events.forEach(event => {
-	  //**get media file and save in assets*/
-	  //this.mediaFile = this._mediaService.getMedia(event.event.event_id);
-	  //** */
-			this._locationService.getLocation(event.event.trigger.data.location_id)
-				.subscribe((res: any) => {
-					if (this.localstorageService.getItem('team') != null) {
-						let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
-						this.answerd = questions_answerd_team;
+	  		if(event.event.trigger.type == 'location'){
+				this._locationService.getLocation(event.event.trigger.data.location_id)
+					.subscribe((res: any) => {
+						if (this.localstorageService.getItem('team') != null) {
+							let questions_answerd_team = this.localstorageService.getItem('team').questions_answerd;
+							this.answerd = questions_answerd_team;
 
-						if (questions_answerd_team != undefined) {
-							if (questions_answerd_team.includes(event.event.action.data.question_id)) {
-								res[0].map_icon = 2;
+							if (questions_answerd_team != undefined) {
+								if (questions_answerd_team.includes(event.event.action.data.question_id)) {
+									res[0].map_icon = 2;
+								} else {
+									res[0].map_icon = 1;
+								};
 							} else {
 								res[0].map_icon = 1;
-							};
+							}
 						} else {
 							res[0].map_icon = 1;
 						}
-					} else {
-						res[0].map_icon = 1;
-					}
 
-					this.timeLimit = event.event.action.data.timeLimit;
+						this.timeLimit = event.event.action.data.timeLimit;
 
-					res[0].question_id = event.event.action.data.question_id;
-					res[0].points = event.event.action.data.points;
-					res[0].devider = event.event.action.data.devider;
-					res[0].latitude = parseFloat(res[0].latitude);
-					res[0].longitude = parseFloat(res[0].longitude);
+						res[0].question_id = event.event.action.data.question_id;
+						res[0].points = event.event.action.data.points;
+						res[0].devider = event.event.action.data.devider;
+						res[0].latitude = parseFloat(res[0].latitude);
+						res[0].longitude = parseFloat(res[0].longitude);
 
-					this.locations.push(res[0]);
+						this.locations.push(res[0]);
 
-				});
+					});
+			};
 		});
-	}
+	
 
+	}
+	//kijkt of er bonus events zijn en slaat ze op
+	public filterBonus(events, tourid){
+		events.forEach(event => {
+			if (event.event.trigger.type == 'bonus'){
+				this.allBonusEvents.push([event.event.id , false]);
+			}
+		});
+		console.log(this.allBonusEvents);
+		this.bonusInterval(tourid);
+		this.bonusInterval = null;
+	}
 	//answer handling
 	public checkAnswer(id: number) {
 		this.stopTimer();
@@ -343,4 +382,8 @@ export class LocationPageComponent implements OnInit {
 
 		}
 	}
+	private checkBonus(){
+
+	}
+
 }
